@@ -1,0 +1,9 @@
+{
+	"name": "projectDataFactory10",
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "829bd1db-c035-49bc-b9af-3f25049a71d2",
+		"tenantId": "a8eec281-aaa3-4dae-ac9b-9a398b9215e7"
+	}
+}
