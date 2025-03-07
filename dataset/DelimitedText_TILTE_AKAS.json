@@ -1,0 +1,23 @@
+{
+	"name": "DelimitedText_TILTE_AKAS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorageIMDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "TITLE_AKAS_CLEAN.csv",
+				"fileSystem": "bronz"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
