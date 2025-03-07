@@ -1,0 +1,9 @@
+{
+	"name": "IMDB010",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d75e7268-5c01-4041-8808-8b6eced8d013",
+		"tenantId": "a8eec281-aaa3-4dae-ac9b-9a398b9215e7"
+	}
+}
