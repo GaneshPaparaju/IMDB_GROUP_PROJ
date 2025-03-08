@@ -5,6 +5,8 @@
 			{
 				"name": "NAME_BASICS",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.00:30:00",
@@ -222,7 +224,7 @@
 							{
 								"source": {
 									"name": "birthYear",
-									"type": "String"
+									"type": "Int64"
 								},
 								"sink": {
 									"name": "BIRTHYEAR",
@@ -232,7 +234,7 @@
 							{
 								"source": {
 									"name": "deathYear",
-									"type": "String"
+									"type": "Int64"
 								},
 								"sink": {
 									"name": "DEATHYEAR",
