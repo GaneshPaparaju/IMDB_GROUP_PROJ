@@ -5,8 +5,6 @@
 			{
 				"name": "NAME_BASICS",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.00:30:00",
@@ -19,148 +17,6 @@
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
-					},
-					"sink": {
-						"type": "ParquetSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "ParquetWriteSettings"
-						}
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "nconst",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "nconst",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							},
-							{
-								"source": {
-									"name": "primaryName",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "primaryName",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							},
-							{
-								"source": {
-									"name": "birthYear",
-									"type": "Int64",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "birthYear",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							},
-							{
-								"source": {
-									"name": "deathYear",
-									"type": "Int64",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "deathYear",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							},
-							{
-								"source": {
-									"name": "primaryProfession",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "primaryProfession",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							},
-							{
-								"source": {
-									"name": "knownForTitles",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "knownForTitles",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							}
-						],
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "DelimitedText_NAME_BASIC",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "Parquet_NAME_BASICS",
-						"type": "DatasetReference",
-						"parameters": {
-							"filename": "Name_Basics.parquet"
-						}
-					}
-				]
-			},
-			{
-				"name": "PARQUET_2_SNOWFLAKW",
-				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [
-					{
-						"activity": "NAME_BASICS",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.00:30:00",
-					"retry": 1,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "ParquetSource",
 						"additionalColumns": [
 							{
 								"name": "DI_JOB_ID",
@@ -183,7 +39,7 @@
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "ParquetReadSettings"
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
@@ -192,14 +48,7 @@
 							"type": "SnowflakeImportCopyCommand"
 						}
 					},
-					"enableStaging": true,
-					"stagingSettings": {
-						"linkedServiceName": {
-							"referenceName": "linkedService1",
-							"type": "LinkedServiceReference"
-						},
-						"path": "imdbstg"
-					},
+					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
@@ -288,11 +137,8 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "Parquet_NAME_BASICS",
-						"type": "DatasetReference",
-						"parameters": {
-							"filename": "Name_Basics.parquet"
-						}
+						"referenceName": "DelimitedText_NAME_BASIC",
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
