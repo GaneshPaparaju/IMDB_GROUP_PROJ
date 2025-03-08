@@ -23,6 +23,31 @@
 			},
 			"compressionCodec": "snappy"
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "nconst",
+				"type": "UTF8"
+			},
+			{
+				"name": "primaryName",
+				"type": "UTF8"
+			},
+			{
+				"name": "birthYear",
+				"type": "UTF8"
+			},
+			{
+				"name": "deathYear",
+				"type": "UTF8"
+			},
+			{
+				"name": "primaryProfession",
+				"type": "UTF8"
+			},
+			{
+				"name": "knownForTitles",
+				"type": "UTF8"
+			}
+		]
 	}
 }
