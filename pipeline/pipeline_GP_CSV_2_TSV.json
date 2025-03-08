@@ -5,8 +5,6 @@
 			{
 				"name": "NAME_BASICS",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.00:30:00",
@@ -40,6 +38,80 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "nconst",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "nconst",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "primaryName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "primaryName",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "birthYear",
+									"type": "Int64",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "birthYear",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "deathYear",
+									"type": "Int64",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "deathYear",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "primaryProfession",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "primaryProfession",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "knownForTitles",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "knownForTitles",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -110,7 +182,105 @@
 							"type": "ParquetReadSettings"
 						}
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "SnowflakeV2Sink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand"
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "linkedService1",
+							"type": "LinkedServiceReference"
+						},
+						"path": "imdbstg"
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "nconst",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NCONST",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "primaryName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PRIMARYNAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "birthYear",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIRTHYEAR",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "deathYear",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DEATHYEAR",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "primaryProfession",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PRIMARYPROFESSION",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "knownForTitles",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KNOWNFORTITLES",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DI_JOB_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DI_JOB_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DI_LOAD_DT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DI_LOAD_DT",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
@@ -119,6 +289,12 @@
 						"parameters": {
 							"filename": "Name_Basics.parquet"
 						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SnowflakeTable1",
+						"type": "DatasetReference"
 					}
 				]
 			}
