@@ -303,7 +303,7 @@
 				]
 			},
 			{
-				"name": "PRINC",
+				"name": "PRINCI_PARQ_2_SNOWFLAKE",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
