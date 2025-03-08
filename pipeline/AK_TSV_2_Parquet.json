@@ -101,6 +101,116 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "tconst",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "tconst",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "titleType",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "titleType",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "primaryTitle",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "primaryTitle",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "originalTitle",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "originalTitle",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "isAdult",
+									"type": "Boolean",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "isAdult",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "startYear",
+									"type": "Int64",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "startYear",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "endYear",
+									"type": "Int64",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "endYear",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "runtimeMinutes",
+									"type": "Int64",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "runtimeMinutes",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "genres",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "genres",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -208,6 +318,22 @@
 				"typeProperties": {
 					"source": {
 						"type": "ParquetSource",
+						"additionalColumns": [
+							{
+								"name": "DI_JOB_ID",
+								"value": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "DI_LOAD_DT",
+								"value": {
+									"value": "@utcNow()",
+									"type": "Expression"
+								}
+							}
+						],
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
@@ -226,9 +352,125 @@
 					"enableStaging": true,
 					"stagingSettings": {
 						"linkedServiceName": {
-							"referenceName": "AzureDataLakeStorage_Group",
+							"referenceName": "linkedService_stg",
 							"type": "LinkedServiceReference"
-						}
+						},
+						"path": "imdbstg"
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "tconst",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TCONST",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "titleType",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TITLETYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "primaryTitle",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PRIMARYTITLE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "originalTitle",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ORIGINALTITLE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "isAdult",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ISADULT",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"name": "startYear",
+									"type": "String"
+								},
+								"sink": {
+									"name": "STARTYEAR",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "endYear",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ENDYEAR",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "runtimeMinutes",
+									"type": "String"
+								},
+								"sink": {
+									"name": "RUNTIMEMINUTES",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "genres",
+									"type": "String"
+								},
+								"sink": {
+									"name": "GENRES",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DI_JOB_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DI_JOB_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DI_LOAD_DT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DI_LOAD_DT",
+									"type": "DateTime"
+								}
+							}
+						]
 					}
 				},
 				"inputs": [
@@ -236,7 +478,7 @@
 						"referenceName": "Title_Basics",
 						"type": "DatasetReference",
 						"parameters": {
-							"filename": "Title_Basics.parquet"
+							"filename": "Title_Basics.Parquet"
 						}
 					}
 				],
