@@ -21,7 +21,7 @@
 				},
 				"fileSystem": "silver"
 			},
-			"compressionCodec": "snappy"
+			"compressionCodec": "none"
 		},
 		"schema": [
 			{
@@ -34,11 +34,11 @@
 			},
 			{
 				"name": "birthYear",
-				"type": "UTF8"
+				"type": "INT64"
 			},
 			{
 				"name": "deathYear",
-				"type": "UTF8"
+				"type": "INT64"
 			},
 			{
 				"name": "primaryProfession",
