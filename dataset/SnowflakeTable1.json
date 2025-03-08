@@ -9,29 +9,31 @@
 		"type": "SnowflakeV2Table",
 		"schema": [
 			{
-				"name": "TCONST",
+				"name": "NCONST",
 				"type": "VARCHAR"
 			},
 			{
-				"name": "ORDERING",
+				"name": "PRIMARYNAME",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "BIRTHYEAR",
 				"type": "NUMBER",
 				"precision": 38,
 				"scale": 0
 			},
 			{
-				"name": "NCONST",
+				"name": "DEATHYEAR",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYPROFESSION",
 				"type": "VARCHAR"
 			},
 			{
-				"name": "CATEGORY",
-				"type": "VARCHAR"
-			},
-			{
-				"name": "JOB",
-				"type": "VARCHAR"
-			},
-			{
-				"name": "CHARACTERS",
+				"name": "KNOWNFORTITLES",
 				"type": "VARCHAR"
 			},
 			{
