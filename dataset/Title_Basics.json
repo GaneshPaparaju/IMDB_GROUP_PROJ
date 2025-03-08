@@ -21,7 +21,7 @@
 				},
 				"fileSystem": "silver"
 			},
-			"compressionCodec": "snappy"
+			"compressionCodec": null
 		},
 		"schema": []
 	}
