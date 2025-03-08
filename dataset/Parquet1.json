@@ -22,7 +22,7 @@
 			},
 			{
 				"name": "ordering",
-				"type": "UTF8"
+				"type": "INT64"
 			},
 			{
 				"name": "nconst",
