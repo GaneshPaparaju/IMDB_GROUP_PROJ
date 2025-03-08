@@ -140,6 +140,8 @@
 			{
 				"name": "PARQUET_2_SNOWFLAKW",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "NAME_BASICS",
