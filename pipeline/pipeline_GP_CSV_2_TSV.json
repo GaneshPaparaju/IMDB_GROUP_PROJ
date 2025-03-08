@@ -17,22 +17,6 @@
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
-						"additionalColumns": [
-							{
-								"name": "DI_JOB_ID",
-								"value": {
-									"value": "@pipeline().RunId",
-									"type": "Expression"
-								}
-							},
-							{
-								"name": "DI_LOAD_DT",
-								"value": {
-									"value": "@utcNow()",
-									"type": "Expression"
-								}
-							}
-						],
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": false,
@@ -43,9 +27,12 @@
 						}
 					},
 					"sink": {
-						"type": "SnowflakeV2Sink",
-						"importSettings": {
-							"type": "SnowflakeImportCopyCommand"
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
 						}
 					},
 					"enableStaging": false,
@@ -55,84 +42,81 @@
 							{
 								"source": {
 									"name": "nconst",
-									"type": "String"
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
-									"name": "NCONST",
-									"type": "String"
+									"name": "nconst",
+									"type": "String",
+									"physicalType": "UTF8"
 								}
 							},
 							{
 								"source": {
 									"name": "primaryName",
-									"type": "String"
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
-									"name": "PRIMARYNAME",
-									"type": "String"
+									"name": "primaryName",
+									"type": "String",
+									"physicalType": "UTF8"
 								}
 							},
 							{
 								"source": {
 									"name": "birthYear",
-									"type": "Int64"
+									"type": "Int64",
+									"physicalType": "String"
 								},
 								"sink": {
-									"name": "BIRTHYEAR",
-									"type": "Int64"
+									"name": "birthYear",
+									"type": "String",
+									"physicalType": "UTF8"
 								}
 							},
 							{
 								"source": {
 									"name": "deathYear",
-									"type": "Int64"
+									"type": "Int64",
+									"physicalType": "String"
 								},
 								"sink": {
-									"name": "DEATHYEAR",
-									"type": "Int64"
+									"name": "deathYear",
+									"type": "String",
+									"physicalType": "UTF8"
 								}
 							},
 							{
 								"source": {
 									"name": "primaryProfession",
-									"type": "String"
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
-									"name": "PRIMARYPROFESSION",
-									"type": "String"
+									"name": "primaryProfession",
+									"type": "String",
+									"physicalType": "UTF8"
 								}
 							},
 							{
 								"source": {
 									"name": "knownForTitles",
-									"type": "String"
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
-									"name": "KNOWNFORTITLES",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "DI_JOB_ID",
-									"type": "String"
-								},
-								"sink": {
-									"name": "DI_JOB_ID",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "DI_LOAD_DT",
-									"type": "String"
-								},
-								"sink": {
-									"name": "DI_LOAD_DT",
-									"type": "DateTime"
+									"name": "knownForTitles",
+									"type": "String",
+									"physicalType": "UTF8"
 								}
 							}
-						]
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
 					}
 				},
 				"inputs": [
@@ -143,10 +127,31 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SnowflakeTable1",
-						"type": "DatasetReference"
+						"referenceName": "Parquet_NAME_BASICS",
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "name_basics2.parquet"
+						}
 					}
 				]
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"enableStaging": false
+				}
 			}
 		],
 		"annotations": []
