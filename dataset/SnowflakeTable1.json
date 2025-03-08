@@ -9,31 +9,29 @@
 		"type": "SnowflakeV2Table",
 		"schema": [
 			{
+				"name": "TCONST",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "ORDERING",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
 				"name": "NCONST",
 				"type": "VARCHAR"
 			},
 			{
-				"name": "PRIMARYNAME",
+				"name": "CATEGORY",
 				"type": "VARCHAR"
 			},
 			{
-				"name": "BIRTHYEAR",
-				"type": "NUMBER",
-				"precision": 38,
-				"scale": 0
-			},
-			{
-				"name": "DEATHYEAR",
-				"type": "NUMBER",
-				"precision": 38,
-				"scale": 0
-			},
-			{
-				"name": "PRIMARYPROFESSION",
+				"name": "JOB",
 				"type": "VARCHAR"
 			},
 			{
-				"name": "KNOWNFORTITLES",
+				"name": "CHARACTERS",
 				"type": "VARCHAR"
 			},
 			{
@@ -47,7 +45,7 @@
 		],
 		"typeProperties": {
 			"schema": "IMDB_SCHEMA",
-			"table": "STAGE_NAME_BASICS"
+			"table": "STAGE_TITLE_PRINCIPALS"
 		}
 	}
 }
