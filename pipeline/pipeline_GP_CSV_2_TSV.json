@@ -5,6 +5,8 @@
 			{
 				"name": "NAME_BASICS",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.00:30:00",
@@ -140,7 +142,14 @@
 				"type": "Copy",
 				"state": "Inactive",
 				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "NAME_BASICS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -150,8 +159,147 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"enableStaging": false
-				}
+					"source": {
+						"type": "ParquetSource",
+						"additionalColumns": [
+							{
+								"name": "DI_JOB_ID",
+								"value": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "DI_LOAD_DT",
+								"value": {
+									"value": "@utcNow()",
+									"type": "Expression"
+								}
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "ParquetReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SnowflakeV2Sink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand"
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "linkedService1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "nconst",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NCONST",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "primaryName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PRIMARYNAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "birthYear",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "BIRTHYEAR",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "deathYear",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "DEATHYEAR",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "primaryProfession",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PRIMARYPROFESSION",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "knownForTitles",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KNOWNFORTITLES",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DI_JOB_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DI_JOB_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DI_LOAD_DT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DI_LOAD_DT",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Parquet_NAME_BASICS",
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "name_basics2.parquet"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SnowflakeTable1",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"annotations": []
