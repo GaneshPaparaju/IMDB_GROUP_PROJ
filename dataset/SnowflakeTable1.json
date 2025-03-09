@@ -13,7 +13,27 @@
 				"type": "VARCHAR"
 			},
 			{
+				"name": "PRIMARYNAME",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "BIRTHYEAR",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "DEATHYEAR",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
 				"name": "PRIMARYPROFESSION",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "KNOWNFORTITLES",
 				"type": "VARCHAR"
 			},
 			{
@@ -27,7 +47,7 @@
 		],
 		"typeProperties": {
 			"schema": "IMDB_SCHEMA",
-			"table": "FLAT_NAME_BASICS"
+			"table": "STAGE_NAME_BASICS"
 		}
 	}
 }
