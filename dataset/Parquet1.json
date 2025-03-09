@@ -25,35 +25,19 @@
 		},
 		"schema": [
 			{
-				"name": "titleId",
+				"name": "tconst",
 				"type": "UTF8"
 			},
 			{
-				"name": "ordering",
+				"name": "parentTconst",
+				"type": "UTF8"
+			},
+			{
+				"name": "seasonNumber",
 				"type": "INT64"
 			},
 			{
-				"name": "title",
-				"type": "UTF8"
-			},
-			{
-				"name": "region",
-				"type": "UTF8"
-			},
-			{
-				"name": "language",
-				"type": "UTF8"
-			},
-			{
-				"name": "types",
-				"type": "UTF8"
-			},
-			{
-				"name": "attributes",
-				"type": "UTF8"
-			},
-			{
-				"name": "isOriginalTitle",
+				"name": "episodeNumber",
 				"type": "INT64"
 			}
 		]
