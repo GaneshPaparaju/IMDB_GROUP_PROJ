@@ -9,40 +9,12 @@
 		"type": "SnowflakeV2Table",
 		"schema": [
 			{
-				"name": "TITLEID",
+				"name": "NCONST",
 				"type": "VARCHAR"
 			},
 			{
-				"name": "ORDERING",
-				"type": "NUMBER",
-				"precision": 38,
-				"scale": 0
-			},
-			{
-				"name": "TITLE",
+				"name": "PRIMARYPROFESSION",
 				"type": "VARCHAR"
-			},
-			{
-				"name": "REGION",
-				"type": "VARCHAR"
-			},
-			{
-				"name": "LANGUAGE",
-				"type": "VARCHAR"
-			},
-			{
-				"name": "TYPES",
-				"type": "VARCHAR"
-			},
-			{
-				"name": "ATTRIBUTES",
-				"type": "VARCHAR"
-			},
-			{
-				"name": "ISORIGINALTITLE",
-				"type": "NUMBER",
-				"precision": 38,
-				"scale": 0
 			},
 			{
 				"name": "DI_JOB_ID",
@@ -55,7 +27,7 @@
 		],
 		"typeProperties": {
 			"schema": "IMDB_SCHEMA",
-			"table": "STAGE_NAME_BASICS"
+			"table": "FLAT_NAME_BASICS"
 		}
 	}
 }
