@@ -102,11 +102,11 @@
 							{
 								"source": {
 									"name": "isAdult",
-									"type": "Boolean"
+									"type": "String"
 								},
 								"sink": {
 									"name": "ISADULT",
-									"type": "Boolean"
+									"type": "String"
 								}
 							},
 							{
