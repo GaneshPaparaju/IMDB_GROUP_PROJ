@@ -1,5 +1,5 @@
 {
-	"name": "episodespipeline1",
+	"name": "RATINGSpipeline1",
 	"properties": {
 		"activities": [
 			{
@@ -116,6 +116,8 @@
 			{
 				"name": "Parquet_2_Snowflake",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "EPISODES",
@@ -252,6 +254,238 @@
 				"outputs": [
 					{
 						"referenceName": "SnowflakeTableEpisodes",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "RATINGS",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 1,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "tconst",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "tconst",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "averageRating",
+									"type": "Decimal",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "averageRating",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "numVotes",
+									"type": "Int64",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "numVotes",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedTextRATINGS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetRATINGS",
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "ratings.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "Parquet_2_Snowflake2",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "RATINGS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 1,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"additionalColumns": [
+							{
+								"name": "DI_JOB_ID",
+								"value": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "DI_LOAD_DT",
+								"value": {
+									"value": "@utcNow()",
+									"type": "Expression"
+								}
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "ParquetReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SnowflakeV2Sink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand"
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "blobstage",
+							"type": "LinkedServiceReference"
+						},
+						"path": "imdbstg"
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "tconst",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TCONST",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "averageRating",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "AVERAGERATING",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"name": "numVotes",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "NUMVOTES",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "DI_JOB_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DI_JOB_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DI_LOAD_DT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DI_LOAD_DT",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ParquetRATINGS",
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "ratings.parquet"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SnowflakeTableRatings",
 						"type": "DatasetReference"
 					}
 				]
