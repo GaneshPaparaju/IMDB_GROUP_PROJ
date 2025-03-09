@@ -26,7 +26,7 @@
 			},
 			{
 				"name": "ISADULT",
-				"type": "BOOLEAN"
+				"type": "VARCHAR"
 			},
 			{
 				"name": "STARTYEAR",
