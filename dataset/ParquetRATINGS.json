@@ -15,43 +15,14 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
 				"fileSystem": "silver"
 			},
 			"compressionCodec": "snappy"
 		},
-		"schema": [
-			{
-				"name": "titleId",
-				"type": "UTF8"
-			},
-			{
-				"name": "ordering",
-				"type": "INT64"
-			},
-			{
-				"name": "title",
-				"type": "UTF8"
-			},
-			{
-				"name": "region",
-				"type": "UTF8"
-			},
-			{
-				"name": "language",
-				"type": "UTF8"
-			},
-			{
-				"name": "types",
-				"type": "UTF8"
-			},
-			{
-				"name": "attributes",
-				"type": "UTF8"
-			},
-			{
-				"name": "isOriginalTitle",
-				"type": "INT64"
-			}
-		]
+		"schema": []
 	}
 }
