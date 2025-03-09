@@ -55,7 +55,7 @@
 		],
 		"typeProperties": {
 			"schema": "IMDB_SCHEMA",
-			"table": "STAGE_TITLE_AKAS"
+			"table": "STAGE_NAME_BASICS"
 		}
 	}
 }
