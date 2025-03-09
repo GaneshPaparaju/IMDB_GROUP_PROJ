@@ -34,7 +34,7 @@
 			},
 			{
 				"name": "isAdult",
-				"type": "BOOLEAN"
+				"type": "UTF8"
 			},
 			{
 				"name": "startYear",
