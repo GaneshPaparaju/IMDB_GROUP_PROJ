@@ -23,6 +23,27 @@
 			},
 			"compressionCodec": "snappy"
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "tconst",
+				"type": "UTF8"
+			},
+			{
+				"name": "directors",
+				"type": "UTF8"
+			},
+			{
+				"name": "writers",
+				"type": "UTF8"
+			},
+			{
+				"name": "DI_JOB_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "DI_LOAD_DT",
+				"type": "UTF8"
+			}
+		]
 	}
 }
