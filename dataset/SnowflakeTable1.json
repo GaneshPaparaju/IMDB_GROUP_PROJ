@@ -9,7 +9,7 @@
 		"type": "SnowflakeV2Table",
 		"schema": [
 			{
-				"name": "TCONST",
+				"name": "TITLEID",
 				"type": "VARCHAR"
 			},
 			{
@@ -19,20 +19,30 @@
 				"scale": 0
 			},
 			{
-				"name": "NCONST",
+				"name": "TITLE",
 				"type": "VARCHAR"
 			},
 			{
-				"name": "CATEGORY",
+				"name": "REGION",
 				"type": "VARCHAR"
 			},
 			{
-				"name": "JOB",
+				"name": "LANGUAGE",
 				"type": "VARCHAR"
 			},
 			{
-				"name": "CHARACTERS",
+				"name": "TYPES",
 				"type": "VARCHAR"
+			},
+			{
+				"name": "ATTRIBUTES",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "ISORIGINALTITLE",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
 			},
 			{
 				"name": "DI_JOB_ID",
@@ -45,7 +55,7 @@
 		],
 		"typeProperties": {
 			"schema": "IMDB_SCHEMA",
-			"table": "STAGE_TITLE_PRINCIPALS"
+			"table": "STAGE_TITLE_AKAS"
 		}
 	}
 }
