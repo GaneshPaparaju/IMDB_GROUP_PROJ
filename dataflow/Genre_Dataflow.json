@@ -76,10 +76,10 @@
 				"     format: 'table',",
 				"     stageInsert: true,",
 				"     mapColumn(",
-				"          GENRES,",
+				"          GENRENAME = GENRES,",
 				"          DI_JOB_ID,",
 				"          DI_LOAD_DT,",
-				"          GenreKey",
+				"          GENREKEY = GenreKey",
 				"     )) ~> sinkGenre"
 			]
 		}
