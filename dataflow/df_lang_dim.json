@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "lang_description",
+						"referenceName": "Lang_Desc",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -20,8 +20,8 @@
 			],
 			"scriptLines": [
 				"source(output(",
-				"          LanguageDescription as string,",
-				"          LanguageCode as string",
+				"          LanguageCode as string,",
+				"          LanguageDescription as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
