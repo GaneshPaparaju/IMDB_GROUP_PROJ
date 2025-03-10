@@ -1,0 +1,87 @@
+{
+	"name": "Genre_Dataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_Flat_title_basic",
+						"type": "DatasetReference"
+					},
+					"name": "sourceTitleBasics"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_Genre",
+						"type": "DatasetReference"
+					},
+					"name": "sinkGenre",
+					"description": "Export data to DIM Genre",
+					"rejectedDataLinkedService": {
+						"referenceName": "linkedService_stg",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "selectGenres"
+				},
+				{
+					"name": "surrogateKeyGenre"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          TCONST as string,",
+				"          TITLETYPE as string,",
+				"          PRIMARYTITLE as string,",
+				"          ORIGINALTITLE as string,",
+				"          ISADULT as string,",
+				"          STARTYEAR as decimal(38,0),",
+				"          ENDYEAR as decimal(38,0),",
+				"          RUNTIMEMINUTES as decimal(38,0),",
+				"          GENRES as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourceTitleBasics",
+				"sourceTitleBasics select(mapColumn(",
+				"          GENRES,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> selectGenres",
+				"selectGenres keyGenerate(output(GenreKey as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKeyGenre",
+				"surrogateKeyGenre sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          GENREKEY as decimal(10,0),",
+				"          GENRENAME as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     stageInsert: true,",
+				"     mapColumn(",
+				"          GENRES,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT,",
+				"          GenreKey",
+				"     )) ~> sinkGenre"
+			]
+		}
+	}
+}
