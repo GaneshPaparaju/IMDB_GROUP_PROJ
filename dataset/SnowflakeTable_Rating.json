@@ -1,5 +1,5 @@
 {
-	"name": "SnowflakeTable_IMDB",
+	"name": "SnowflakeTable_Rating",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Snowflake_IMDB",
@@ -9,14 +9,20 @@
 		"type": "SnowflakeV2Table",
 		"schema": [
 			{
-				"name": "TCONST",
-				"type": "VARCHAR"
+				"name": "RATINGKEY",
+				"type": "NUMBER",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "TITLEKEY",
+				"type": "NUMBER",
+				"precision": 10,
+				"scale": 0
 			},
 			{
 				"name": "AVERAGERATING",
-				"type": "FLOAT",
-				"precision": 38,
-				"scale": 0
+				"type": "FLOAT"
 			},
 			{
 				"name": "NUMVOTES",
@@ -34,8 +40,8 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "IMDB_SCHEMA",
-			"table": "STAGE_TITLE_RATINGS"
+			"schema": "IMDB_DIM_SCHEMA",
+			"table": "FACT_TITLE_RATINGS"
 		}
 	}
 }

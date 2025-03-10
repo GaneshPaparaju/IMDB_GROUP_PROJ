@@ -1,5 +1,5 @@
 {
-	"name": "SnowflakeTable_IMDB",
+	"name": "SnowflakeTable_Title",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Snowflake_IMDB",
@@ -13,16 +13,42 @@
 				"type": "VARCHAR"
 			},
 			{
-				"name": "AVERAGERATING",
-				"type": "FLOAT",
+				"name": "TITLETYPE",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "PRIMARYTITLE",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "ORIGINALTITLE",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "ISADULT",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "STARTYEAR",
+				"type": "NUMBER",
 				"precision": 38,
 				"scale": 0
 			},
 			{
-				"name": "NUMVOTES",
+				"name": "ENDYEAR",
 				"type": "NUMBER",
 				"precision": 38,
 				"scale": 0
+			},
+			{
+				"name": "RUNTIMEMINUTES",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "GENRES",
+				"type": "VARCHAR"
 			},
 			{
 				"name": "DI_JOB_ID",
@@ -35,7 +61,7 @@
 		],
 		"typeProperties": {
 			"schema": "IMDB_SCHEMA",
-			"table": "STAGE_TITLE_RATINGS"
+			"table": "STAGE_TITLE_BASICS"
 		}
 	}
 }
