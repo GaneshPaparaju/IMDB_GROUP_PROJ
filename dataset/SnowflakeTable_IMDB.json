@@ -35,7 +35,7 @@
 		],
 		"typeProperties": {
 			"schema": "IMDB_SCHEMA",
-			"table": "STAGE_TITLE_RATINGS"
+			"table": "STAGE_TITLE_BASICS"
 		}
 	}
 }
