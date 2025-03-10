@@ -487,6 +487,8 @@
 			{
 				"name": "Flat_Genre_Title_Basic",
 				"type": "ExecuteDataFlow",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.00:30:00",
@@ -499,6 +501,30 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "Genre_Flatten",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "DIM_GENRE_LOAD",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 1,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Genre_Dataflow",
 						"type": "DataFlowReference"
 					},
 					"compute": {
