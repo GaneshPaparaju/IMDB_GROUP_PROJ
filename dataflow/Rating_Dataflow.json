@@ -80,7 +80,7 @@
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> joinSourceRating",
 				"joinSourceRating select(mapColumn(",
-				"          TCONST = sourceTitle@TCONST,",
+				"          TCONST = sourceRating@TCONST,",
 				"          AVERAGERATING,",
 				"          NUMVOTES,",
 				"          DI_JOB_ID = sourceRating@DI_JOB_ID,",
