@@ -45,6 +45,9 @@
 				{
 					"name": "surrogateKeyRating",
 					"description": "Adding new key RowNum starting from 1 with step 1"
+				},
+				{
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -91,7 +94,17 @@
 				"selectRating keyGenerate(output(RowNum as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> surrogateKeyRating",
-				"surrogateKeyRating sink(allowSchemaDrift: true,",
+				"surrogateKeyRating select(mapColumn(",
+				"          TCONST,",
+				"          AVERAGERATING,",
+				"          NUMVOTES,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT,",
+				"          RowNum",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          RATINGKEY as decimal(10,0),",
