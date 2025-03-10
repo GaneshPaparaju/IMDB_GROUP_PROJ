@@ -1,0 +1,155 @@
+{
+	"name": "Title_principal_dataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_principal",
+						"type": "DatasetReference"
+					},
+					"name": "sourcePrincipal"
+				},
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_Title",
+						"type": "DatasetReference"
+					},
+					"name": "sourceTitleBasic"
+				},
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_Name_basic",
+						"type": "DatasetReference"
+					},
+					"name": "sourceNameBasic",
+					"description": "Import dataset from Name Basic"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_Principal_Fact",
+						"type": "DatasetReference"
+					},
+					"name": "sinkPrincipal",
+					"description": "Export data to FACT_TITLE_PRINCIPAL"
+				}
+			],
+			"transformations": [
+				{
+					"name": "joinTitlePrincipal"
+				},
+				{
+					"name": "joinNamePrincipal"
+				},
+				{
+					"name": "selectColumns"
+				},
+				{
+					"name": "surrogateKeyPrincipal"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          TCONST as string,",
+				"          ORDERING as decimal(38,0),",
+				"          NCONST as string,",
+				"          CATEGORY as string,",
+				"          JOB as string,",
+				"          CHARACTERS as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourcePrincipal",
+				"source(output(",
+				"          TITLEKEY as decimal(10,0),",
+				"          TCONST as string,",
+				"          TITLETYPE as string,",
+				"          PRIMARYTITLE as string,",
+				"          ORIGINALTITLE as string,",
+				"          STARTYEAR as decimal(38,0),",
+				"          ENDYEAR as decimal(38,0),",
+				"          RUNTIMEMINUTES as decimal(38,0),",
+				"          ISADULT as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourceTitleBasic",
+				"source(output(",
+				"          NAMEKEY as decimal(10,0),",
+				"          NCONST as string,",
+				"          PRIMARYNAME as string,",
+				"          BIRTHYEAR as decimal(38,0),",
+				"          DEATHYEAR as decimal(38,0),",
+				"          KNOWNFORTITLES as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourceNameBasic",
+				"sourcePrincipal, sourceTitleBasic join(sourcePrincipal@TCONST == sourceTitleBasic@TCONST,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinTitlePrincipal",
+				"joinTitlePrincipal, sourceNameBasic join(sourcePrincipal@NCONST == sourceNameBasic@NCONST,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinNamePrincipal",
+				"joinNamePrincipal select(mapColumn(",
+				"          ORDERING,",
+				"          CATEGORY,",
+				"          JOB,",
+				"          CHARACTERS,",
+				"          TITLEKEY,",
+				"          NAMEKEY,",
+				"          DI_JOB_ID = sourcePrincipal@DI_JOB_ID,",
+				"          DI_LOAD_DT = sourcePrincipal@DI_LOAD_DT",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> selectColumns",
+				"selectColumns keyGenerate(output(PrincipalKey as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKeyPrincipal",
+				"surrogateKeyPrincipal sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          PRINCIPALKEY as decimal(10,0),",
+				"          TITLEKEY as decimal(10,0),",
+				"          NAMEKEY as decimal(10,0),",
+				"          ORDERING as decimal(38,0),",
+				"          CATEGORY as string,",
+				"          JOB as string,",
+				"          CHARACTERS as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     stageInsert: true,",
+				"     mapColumn(",
+				"          PRINCIPALKEY = PrincipalKey,",
+				"          TITLEKEY,",
+				"          NAMEKEY,",
+				"          ORDERING,",
+				"          CATEGORY,",
+				"          JOB,",
+				"          CHARACTERS,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT",
+				"     )) ~> sinkPrincipal"
+			]
+		}
+	}
+}
