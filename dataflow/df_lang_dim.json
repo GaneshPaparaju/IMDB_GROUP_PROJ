@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "SnowflakeTablel_lang",
+						"referenceName": "SnowflakeTablelang",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
