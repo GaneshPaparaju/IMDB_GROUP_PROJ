@@ -26,7 +26,15 @@
 					"name": "dimGenre"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTableBridge",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "join1"
@@ -35,16 +43,13 @@
 					"name": "join2"
 				},
 				{
-					"name": "join3"
+					"name": "select1"
 				},
 				{
-					"name": "join4"
+					"name": "surrogateKey1"
 				},
 				{
-					"name": "split1"
-				},
-				{
-					"name": "join5"
+					"name": "select2"
 				}
 			],
 			"scriptLines": [
@@ -89,28 +94,51 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table') ~> dimGenre",
-				"join2 join(joinType:'inner',",
+				"flattenTable, dimGenre join(GENRES == GENRENAME,",
+				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join1",
-				"join3 join(joinType:'inner',",
+				"select2, dimTitle join(flattenTable@TCONST == dimTitle@TCONST,",
+				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join2",
-				"join4 join(joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join3",
-				"split1 join(joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join4",
-				"join5 split(ERROR_FUNCTION(''),",
-				"     disjoint: false) ~> split1@(, )",
-				"flattenTable join(joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join5"
+				"join2 select(mapColumn(",
+				"          GENREKEY,",
+				"          DI_JOB_ID = dimGenre@DI_JOB_ID,",
+				"          DI_LOAD_DT = dimGenre@DI_LOAD_DT,",
+				"          TITLEKEY",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 keyGenerate(output(RowNum as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKey1",
+				"join1 select(mapColumn(",
+				"          TCONST,",
+				"          DI_JOB_ID = flattenTable@DI_JOB_ID,",
+				"          DI_LOAD_DT = flattenTable@DI_LOAD_DT",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select2",
+				"surrogateKey1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          TITLEGENREKEY as decimal(10,0),",
+				"          GENREKEY as decimal(10,0),",
+				"          TITLEKEY as decimal(10,0),",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     stageInsert: true) ~> sink1"
 			]
 		}
 	}
