@@ -1,46 +1,46 @@
 {
-	"name": "Parquet1",
-	"properties": {
-		"linkedServiceName": {
-			"referenceName": "AzureDataLakeStorage1",
-			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"filename": {
-				"type": "string"
-			}
-		},
-		"annotations": [],
-		"type": "Parquet",
-		"typeProperties": {
-			"location": {
-				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().filename",
-					"type": "Expression"
-				},
-				"fileSystem": "silver"
-			},
-			"compressionCodec": "snappy"
-		},
-		"schema": [
-			{
-				"name": "tconst",
-				"type": "UTF8"
-			},
-			{
-				"name": "parentTconst",
-				"type": "UTF8"
-			},
-			{
-				"name": "seasonNumber",
-				"type": "INT64"
-			},
-			{
-				"name": "episodeNumber",
-				"type": "INT64"
-			}
-		]
-	}
-}
 
+  "name": "Parquet1",
+  "properties": {
+    "linkedServiceName": {
+      "referenceName": "AzureDataLakeStorageIMDB",
+      "type": "LinkedServiceReference"
+    },
+    "annotations": [],
+    "type": "Parquet",
+    "typeProperties": {
+      "location": {
+        "type": "AzureBlobFSLocation",
+        "fileName": "TITLE_PRINCIPALS_CLEAN.parquet",
+        "fileSystem": "silver"
+      },
+      "compressionCodec": "snappy"
+    },
+    "schema": [
+      {
+        "name": "tconst",
+        "type": "UTF8"
+      },
+      {
+        "name": "ordering",
+        "type": "INT64"
+      },
+      {
+        "name": "nconst",
+        "type": "UTF8"
+      },
+      {
+        "name": "category",
+        "type": "UTF8"
+      },
+      {
+        "name": "job",
+        "type": "UTF8"
+      },
+      {
+        "name": "characters",
+        "type": "UTF8"
+      }
+    ]
+  }
+}
