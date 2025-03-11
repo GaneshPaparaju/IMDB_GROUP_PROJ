@@ -354,6 +354,8 @@
 			{
 				"name": "Parquet_2_Snowflake2",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "RATINGS",
