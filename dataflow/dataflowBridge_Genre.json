@@ -1,0 +1,192 @@
+{
+	"name": "dataflowBridge_Genre",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTableFlattenedTitleBasics",
+						"type": "DatasetReference"
+					},
+					"name": "FlattenedTitleBasics"
+				},
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTableDimRegion_1",
+						"type": "DatasetReference"
+					},
+					"name": "DimTitle1"
+				},
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTableDimGenre",
+						"type": "DatasetReference"
+					},
+					"name": "DimGenre"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTableBridge_Genre",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "select1"
+				},
+				{
+					"name": "select2"
+				},
+				{
+					"name": "select3"
+				},
+				{
+					"name": "join1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "select4"
+				},
+				{
+					"name": "join2"
+				},
+				{
+					"name": "surrogateKey1"
+				},
+				{
+					"name": "select5"
+				},
+				{
+					"name": "derivedColumn3"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     JOB_ID as string (\"10\")",
+				"}",
+				"source(output(",
+				"          TCONST as string,",
+				"          TITLETYPE as string,",
+				"          PRIMARYTITLE as string,",
+				"          ORIGINALTITLE as string,",
+				"          ISADULT as string,",
+				"          STARTYEAR as decimal(38,0),",
+				"          ENDYEAR as decimal(38,0),",
+				"          RUNTIMEMINUTES as decimal(38,0),",
+				"          GENRES as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> FlattenedTitleBasics",
+				"source(output(",
+				"          TITLEKEY as decimal(10,0),",
+				"          TCONST as string,",
+				"          TITLETYPE as string,",
+				"          PRIMARYTITLE as string,",
+				"          ORIGINALTITLE as string,",
+				"          STARTYEAR as decimal(38,0),",
+				"          ENDYEAR as decimal(38,0),",
+				"          RUNTIMEMINUTES as decimal(38,0),",
+				"          ISADULT as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> DimTitle1",
+				"source(output(",
+				"          GENREKEY as decimal(10,0),",
+				"          GENRENAME as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> DimGenre",
+				"FlattenedTitleBasics select(mapColumn(",
+				"          TCONST,",
+				"          GENRES",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select1",
+				"DimTitle1 select(mapColumn(",
+				"          TITLEKEY,",
+				"          TCONST",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select2",
+				"DimGenre select(mapColumn(",
+				"          GENREKEY,",
+				"          GENRENAME",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select3",
+				"derivedColumn1, derivedColumn2 join(TCONST_TRIM == TITLE_TCONST_TRIM,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"select1 derive(TCONST_TRIM = lower(trim(TCONST))) ~> derivedColumn1",
+				"select2 derive(TITLE_TCONST_TRIM = lower(trim(TCONST))) ~> derivedColumn2",
+				"join1 select(mapColumn(",
+				"          GENRES,",
+				"          TCONST_TRIM,",
+				"          TITLEKEY,",
+				"          TITLE_TCONST_TRIM",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select4",
+				"select4, select3 join(GENRES == GENRENAME,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join2",
+				"select5 keyGenerate(output(RowNum as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKey1",
+				"join2 select(mapColumn(",
+				"          TITLEKEY,",
+				"          GENREKEY",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select5",
+				"surrogateKey1 derive(DI_JOB_ID = $JOB_ID,",
+				"          DI_LOAD_DT = currentDate()) ~> derivedColumn3",
+				"derivedColumn3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          TITLEGENREKEY as decimal(10,0),",
+				"          GENREKEY as decimal(10,0),",
+				"          TITLEKEY as decimal(10,0),",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     stageInsert: true,",
+				"     mapColumn(",
+				"          TITLEGENREKEY = RowNum,",
+				"          GENREKEY,",
+				"          TITLEKEY,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}
