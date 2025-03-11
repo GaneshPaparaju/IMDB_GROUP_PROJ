@@ -112,7 +112,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table') ~> dimGenre",
-				"select2, dimGenre join(GENRES == GENRENAME,",
+				"select2, select5 join(GENRES == GENRENAME,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
