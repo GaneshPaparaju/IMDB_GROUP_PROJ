@@ -1,0 +1,16 @@
+{
+	"name": "DIMREG",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Snowflake1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IMDB_DIM_SCHEMA",
+			"table": "DIM_REGION"
+		}
+	}
+}
