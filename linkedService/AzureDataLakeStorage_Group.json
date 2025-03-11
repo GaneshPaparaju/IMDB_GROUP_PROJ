@@ -1,0 +1,10 @@
+{
+	"name": "AzureDataLakeStorage_Group",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://damg7370gp.dfs.core.windows.net/"
+		}
+	}
+}

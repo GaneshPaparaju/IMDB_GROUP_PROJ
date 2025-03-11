@@ -1,8 +1,8 @@
 {
-	"name": "Parquet1",
+	"name": "Title_Crew_Parquet",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureDataLakeStorage1",
+			"referenceName": "AzureDataLakeStorage_Group",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -29,18 +29,21 @@
 				"type": "UTF8"
 			},
 			{
-				"name": "parentTconst",
+				"name": "directors",
 				"type": "UTF8"
 			},
 			{
-				"name": "seasonNumber",
-				"type": "INT64"
+				"name": "writers",
+				"type": "UTF8"
 			},
 			{
-				"name": "episodeNumber",
-				"type": "INT64"
+				"name": "DI_JOB_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "DI_LOAD_DT",
+				"type": "UTF8"
 			}
 		]
 	}
 }
-

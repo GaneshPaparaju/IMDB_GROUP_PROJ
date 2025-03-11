@@ -1,0 +1,220 @@
+{
+	"name": "dataflowBridge_Akas",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "STGAKA",
+						"type": "DatasetReference"
+					},
+					"name": "StageAka"
+				},
+				{
+					"dataset": {
+						"referenceName": "DIMREG",
+						"type": "DatasetReference"
+					},
+					"name": "DimRegion"
+				},
+				{
+					"dataset": {
+						"referenceName": "DIMLANG",
+						"type": "DatasetReference"
+					},
+					"name": "DimLang"
+				},
+				{
+					"dataset": {
+						"referenceName": "DIMTITLE",
+						"type": "DatasetReference"
+					},
+					"name": "DimTitle"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "bridge_akas",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selectAKA"
+				},
+				{
+					"name": "selectREGION"
+				},
+				{
+					"name": "selectLANG"
+				},
+				{
+					"name": "selectTITLE"
+				},
+				{
+					"name": "join1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "join2"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "join3"
+				},
+				{
+					"name": "surrogateKey1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          TITLEID as string,",
+				"          ORDERING as decimal(38,0),",
+				"          TITLE as string,",
+				"          REGION as string,",
+				"          LANGUAGE as string,",
+				"          TYPES as string,",
+				"          ATTRIBUTES as string,",
+				"          ISORIGINALTITLE as decimal(38,0),",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> StageAka",
+				"source(output(",
+				"          REGIONKEY as decimal(10,0),",
+				"          REGIONCODE as string,",
+				"          REGIONNAME as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> DimRegion",
+				"source(output(",
+				"          LANGUAGEKEY as decimal(10,0),",
+				"          LANGUAGECODE as string,",
+				"          LANGUAGEDESCRIPTION as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> DimLang",
+				"source(output(",
+				"          TITLEKEY as decimal(10,0),",
+				"          TCONST as string,",
+				"          TITLETYPE as string,",
+				"          PRIMARYTITLE as string,",
+				"          ORIGINALTITLE as string,",
+				"          STARTYEAR as decimal(38,0),",
+				"          ENDYEAR as decimal(38,0),",
+				"          RUNTIMEMINUTES as decimal(38,0),",
+				"          ISADULT as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> DimTitle",
+				"StageAka select(mapColumn(",
+				"          TITLEID,",
+				"          TITLE,",
+				"          REGION,",
+				"          LANGUAGE,",
+				"          ISORIGINALTITLE,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> selectAKA",
+				"DimRegion select(mapColumn(",
+				"          REGIONKEY,",
+				"          REGIONCODE",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> selectREGION",
+				"DimLang select(mapColumn(",
+				"          LANGUAGEKEY,",
+				"          LANGUAGECODE",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> selectLANG",
+				"DimTitle select(mapColumn(",
+				"          TITLEKEY,",
+				"          TCONST,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> selectTITLE",
+				"derivedColumn1, selectREGION join(REGION_LOWER == REGIONCODE,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"selectAKA derive(REGION_LOWER = lower(trim(REGION))) ~> derivedColumn1",
+				"select1, selectLANG join(LANGUAGE == LANGUAGECODE,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join2",
+				"join1 select(mapColumn(",
+				"          TITLEID,",
+				"          TITLE,",
+				"          LANGUAGE,",
+				"          ISORIGINALTITLE,",
+				"          REGION_LOWER,",
+				"          REGIONKEY",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select1",
+				"join2, selectTITLE join(TITLEID == TCONST,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join3",
+				"join3 keyGenerate(output(RowNum as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKey1",
+				"surrogateKey1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          TITLEAKAKEY as decimal(10,0),",
+				"          REGIONKEY as decimal(10,0),",
+				"          LANGUAGEKEY as decimal(10,0),",
+				"          TITLEKEY as decimal(10,0),",
+				"          AKATITLE as string,",
+				"          ISORIGINALTITLE as decimal(38,0),",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     stageInsert: true,",
+				"     mapColumn(",
+				"          TITLEAKAKEY = RowNum,",
+				"          REGIONKEY,",
+				"          LANGUAGEKEY,",
+				"          TITLEKEY,",
+				"          AKATITLE = TITLE,",
+				"          ISORIGINALTITLE,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}

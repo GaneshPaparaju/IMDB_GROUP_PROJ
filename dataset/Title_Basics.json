@@ -1,8 +1,8 @@
 {
-	"name": "Parquet1",
+	"name": "Title_Basics",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureDataLakeStorage1",
+			"referenceName": "AzureDataLakeStorage_Group",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -29,18 +29,37 @@
 				"type": "UTF8"
 			},
 			{
-				"name": "parentTconst",
+				"name": "titleType",
 				"type": "UTF8"
 			},
 			{
-				"name": "seasonNumber",
+				"name": "primaryTitle",
+				"type": "UTF8"
+			},
+			{
+				"name": "originalTitle",
+				"type": "UTF8"
+			},
+			{
+				"name": "isAdult",
+				"type": "UTF8"
+			},
+			{
+				"name": "startYear",
 				"type": "INT64"
 			},
 			{
-				"name": "episodeNumber",
+				"name": "endYear",
 				"type": "INT64"
+			},
+			{
+				"name": "runtimeMinutes",
+				"type": "INT64"
+			},
+			{
+				"name": "genres",
+				"type": "UTF8"
 			}
 		]
 	}
 }
-

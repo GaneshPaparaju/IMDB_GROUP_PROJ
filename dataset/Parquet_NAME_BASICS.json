@@ -1,8 +1,8 @@
 {
-	"name": "Parquet1",
+	"name": "Parquet_NAME_BASICS",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureDataLakeStorage1",
+			"referenceName": "AzureDataLakeStorageIMDB",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -21,26 +21,33 @@
 				},
 				"fileSystem": "silver"
 			},
-			"compressionCodec": "snappy"
+			"compressionCodec": "none"
 		},
 		"schema": [
 			{
-				"name": "tconst",
+				"name": "nconst",
 				"type": "UTF8"
 			},
 			{
-				"name": "parentTconst",
+				"name": "primaryName",
 				"type": "UTF8"
 			},
 			{
-				"name": "seasonNumber",
+				"name": "birthYear",
 				"type": "INT64"
 			},
 			{
-				"name": "episodeNumber",
+				"name": "deathYear",
 				"type": "INT64"
+			},
+			{
+				"name": "primaryProfession",
+				"type": "UTF8"
+			},
+			{
+				"name": "knownForTitles",
+				"type": "UTF8"
 			}
 		]
 	}
 }
-

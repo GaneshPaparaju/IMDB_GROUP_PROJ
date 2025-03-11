@@ -1,0 +1,16 @@
+{
+	"name": "STGAKA",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Snowflake1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IMDB_SCHEMA",
+			"table": "STAGE_TITLE_AKAS"
+		}
+	}
+}
