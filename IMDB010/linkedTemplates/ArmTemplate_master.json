@@ -1,0 +1,221 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "IMDB010"
+		},
+		"IMDB_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'IMDB'"
+		},
+		"Snowflake1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Snowflake1'"
+		},
+		"Snowflake_IMDB_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Snowflake_IMDB'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://damg7370gp.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorageIMDB_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://damg7370gp.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage_Blob_MidTerm_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://damg7370spring.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage_Group_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://damg7370gp.dfs.core.windows.net/"
+		},
+		"AzureKeyVault2_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://damg7370kvgp.vault.azure.net/"
+		},
+		"IMDB_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "GROUP_DB"
+		},
+		"IMDB_properties_typeProperties_role": {
+			"type": "string",
+			"defaultValue": "DEV2_ROLE"
+		},
+		"Snowflake1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "GROUP_DB"
+		},
+		"Snowflake1_properties_typeProperties_role": {
+			"type": "string",
+			"defaultValue": "DEV2_ROLE"
+		},
+		"Snowflake_IMDB_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "GROUP_DB"
+		},
+		"Snowflake_IMDB_properties_typeProperties_role": {
+			"type": "string",
+			"defaultValue": "DEV2_ROLE"
+		},
+		"blobstage_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'blobstage'"
+		},
+		"linkedService1_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'linkedService1'"
+		},
+		"linkedService_stg_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'linkedService_stg'"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "IMDB010_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"IMDB_password": {
+						"value": "[parameters('IMDB_password')]"
+					},
+					"Snowflake1_password": {
+						"value": "[parameters('Snowflake1_password')]"
+					},
+					"Snowflake_IMDB_password": {
+						"value": "[parameters('Snowflake_IMDB_password')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorageIMDB_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorageIMDB_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage_Blob_MidTerm_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage_Blob_MidTerm_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage_Group_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage_Group_properties_typeProperties_url')]"
+					},
+					"AzureKeyVault2_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyVault2_properties_typeProperties_baseUrl')]"
+					},
+					"IMDB_properties_typeProperties_database": {
+						"value": "[parameters('IMDB_properties_typeProperties_database')]"
+					},
+					"IMDB_properties_typeProperties_role": {
+						"value": "[parameters('IMDB_properties_typeProperties_role')]"
+					},
+					"Snowflake1_properties_typeProperties_database": {
+						"value": "[parameters('Snowflake1_properties_typeProperties_database')]"
+					},
+					"Snowflake1_properties_typeProperties_role": {
+						"value": "[parameters('Snowflake1_properties_typeProperties_role')]"
+					},
+					"Snowflake_IMDB_properties_typeProperties_database": {
+						"value": "[parameters('Snowflake_IMDB_properties_typeProperties_database')]"
+					},
+					"Snowflake_IMDB_properties_typeProperties_role": {
+						"value": "[parameters('Snowflake_IMDB_properties_typeProperties_role')]"
+					},
+					"blobstage_sasUri": {
+						"value": "[parameters('blobstage_sasUri')]"
+					},
+					"linkedService1_sasUri": {
+						"value": "[parameters('linkedService1_sasUri')]"
+					},
+					"linkedService_stg_sasUri": {
+						"value": "[parameters('linkedService_stg_sasUri')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "IMDB010_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'IMDB010_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "IMDB010_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'IMDB010_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "IMDB010_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'IMDB010_ArmTemplate_2')]"
+			]
+		}
+	]
+}

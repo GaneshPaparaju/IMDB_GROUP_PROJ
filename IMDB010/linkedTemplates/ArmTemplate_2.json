@@ -1,0 +1,1589 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "IMDB010"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/SnowflakeTable_Title_Basic_Satge')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Snowflake_IMDB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SnowflakeV2Table",
+				"schema": [
+					{
+						"name": "TCONST",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "TITLETYPE",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "PRIMARYTITLE",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "ORIGINALTITLE",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "ISADULT",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "STARTYEAR",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "ENDYEAR",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "RUNTIMEMINUTES",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "GENRES",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_JOB_ID",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_LOAD_DT",
+						"type": "DATE"
+					}
+				],
+				"typeProperties": {
+					"schema": "IMDB_SCHEMA",
+					"table": "STAGE_TITLE_BASICS"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SnowflakeTable_principal')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Snowflake_IMDB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SnowflakeV2Table",
+				"schema": [
+					{
+						"name": "TCONST",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "ORDERING",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "NCONST",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "CATEGORY",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "JOB",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "CHARACTERS",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_JOB_ID",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_LOAD_DT",
+						"type": "DATE"
+					}
+				],
+				"typeProperties": {
+					"schema": "IMDB_SCHEMA",
+					"table": "STAGE_TITLE_PRINCIPALS"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SnowflakeTabledim_proff')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Snowflake1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SnowflakeV2Table",
+				"schema": [
+					{
+						"name": "PROFESSIONKEY",
+						"type": "NUMBER",
+						"precision": 10,
+						"scale": 0
+					},
+					{
+						"name": "PROFESSIONNAME",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_JOB_ID",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_LOAD_DT",
+						"type": "DATE"
+					}
+				],
+				"typeProperties": {
+					"schema": "IMDB_DIM_SCHEMA",
+					"table": "DIM_PROFESSION"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SnowflakeTablelang')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Snowflake1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SnowflakeV2Table",
+				"schema": [
+					{
+						"name": "LANGUAGEKEY",
+						"type": "NUMBER",
+						"precision": 10,
+						"scale": 0
+					},
+					{
+						"name": "LANGUAGECODE",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "LANGUAGEDESCRIPTION",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_JOB_ID",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_LOAD_DT",
+						"type": "DATE"
+					}
+				],
+				"typeProperties": {
+					"schema": "IMDB_DIM_SCHEMA",
+					"table": "DIM_LANGUAGE"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SnowflakeTablename_dim')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Snowflake1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SnowflakeV2Table",
+				"schema": [
+					{
+						"name": "NAMEKEY",
+						"type": "NUMBER",
+						"precision": 10,
+						"scale": 0
+					},
+					{
+						"name": "NCONST",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "PRIMARYNAME",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "BIRTHYEAR",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "DEATHYEAR",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "KNOWNFORTITLES",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_JOB_ID",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_LOAD_DT",
+						"type": "DATE"
+					}
+				],
+				"typeProperties": {
+					"schema": "IMDB_DIM_SCHEMA",
+					"table": "DIM_NAME"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SnowflakeTableregion')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Snowflake1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SnowflakeV2Table",
+				"schema": [
+					{
+						"name": "REGIONKEY",
+						"type": "NUMBER",
+						"precision": 10,
+						"scale": 0
+					},
+					{
+						"name": "REGIONCODE",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "REGIONNAME",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_JOB_ID",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_LOAD_DT",
+						"type": "DATE"
+					}
+				],
+				"typeProperties": {
+					"schema": "IMDB_DIM_SCHEMA",
+					"table": "DIM_REGION"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SnowflakeTablestgnamebasics')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Snowflake1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SnowflakeV2Table",
+				"schema": [
+					{
+						"name": "NCONST",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "PRIMARYNAME",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "BIRTHYEAR",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "DEATHYEAR",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "PRIMARYPROFESSION",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "KNOWNFORTITLES",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_JOB_ID",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_LOAD_DT",
+						"type": "DATE"
+					}
+				],
+				"typeProperties": {
+					"schema": "IMDB_SCHEMA",
+					"table": "STAGE_NAME_BASICS"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TITLE_BASIC_Parquet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage_Group",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "TITLE_BASICS_CLEAN.parquet",
+						"fileSystem": "silver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "tconst",
+						"type": "UTF8"
+					},
+					{
+						"name": "titleType",
+						"type": "UTF8"
+					},
+					{
+						"name": "primaryTitle",
+						"type": "UTF8"
+					},
+					{
+						"name": "originalTitle",
+						"type": "UTF8"
+					},
+					{
+						"name": "isAdult",
+						"type": "UTF8"
+					},
+					{
+						"name": "startYear",
+						"type": "INT64"
+					},
+					{
+						"name": "endYear",
+						"type": "INT_16"
+					},
+					{
+						"name": "runtimeMinutes",
+						"type": "INT64"
+					},
+					{
+						"name": "genres",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Title_Basic_Dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage_Group",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "TITLE_BASICS_CLEAN.csv",
+						"fileSystem": "bronz"
+					},
+					"columnDelimiter": ",",
+					"encodingName": "UTF-8 without BOM",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "tconst",
+						"type": "String"
+					},
+					{
+						"name": "titleType",
+						"type": "String"
+					},
+					{
+						"name": "primaryTitle",
+						"type": "String"
+					},
+					{
+						"name": "originalTitle",
+						"type": "String"
+					},
+					{
+						"name": "isAdult",
+						"type": "String"
+					},
+					{
+						"name": "startYear",
+						"type": "String"
+					},
+					{
+						"name": "endYear",
+						"type": "String"
+					},
+					{
+						"name": "runtimeMinutes",
+						"type": "String"
+					},
+					{
+						"name": "genres",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Title_Basics')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage_Group",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
+						"fileSystem": "silver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "tconst",
+						"type": "UTF8"
+					},
+					{
+						"name": "titleType",
+						"type": "UTF8"
+					},
+					{
+						"name": "primaryTitle",
+						"type": "UTF8"
+					},
+					{
+						"name": "originalTitle",
+						"type": "UTF8"
+					},
+					{
+						"name": "isAdult",
+						"type": "UTF8"
+					},
+					{
+						"name": "startYear",
+						"type": "INT64"
+					},
+					{
+						"name": "endYear",
+						"type": "INT64"
+					},
+					{
+						"name": "runtimeMinutes",
+						"type": "INT64"
+					},
+					{
+						"name": "genres",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Title_Crew_Dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage_Group",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "TITLE_CREW_CLEAN.csv",
+						"fileSystem": "bronz"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "tconst",
+						"type": "String"
+					},
+					{
+						"name": "directors",
+						"type": "String"
+					},
+					{
+						"name": "writers",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Title_Crew_Parquet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage_Group",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
+						"fileSystem": "silver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "tconst",
+						"type": "UTF8"
+					},
+					{
+						"name": "directors",
+						"type": "UTF8"
+					},
+					{
+						"name": "writers",
+						"type": "UTF8"
+					},
+					{
+						"name": "DI_JOB_ID",
+						"type": "UTF8"
+					},
+					{
+						"name": "DI_LOAD_DT",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/bridge_akas')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Snowflake1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SnowflakeV2Table",
+				"schema": [
+					{
+						"name": "TITLEAKAKEY",
+						"type": "NUMBER",
+						"precision": 10,
+						"scale": 0
+					},
+					{
+						"name": "REGIONKEY",
+						"type": "NUMBER",
+						"precision": 10,
+						"scale": 0
+					},
+					{
+						"name": "LANGUAGEKEY",
+						"type": "NUMBER",
+						"precision": 10,
+						"scale": 0
+					},
+					{
+						"name": "TITLEKEY",
+						"type": "NUMBER",
+						"precision": 10,
+						"scale": 0
+					},
+					{
+						"name": "AKATITLE",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "ISORIGINALTITLE",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "DI_JOB_ID",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "DI_LOAD_DT",
+						"type": "DATE"
+					}
+				],
+				"typeProperties": {
+					"schema": "IMDB_DIM_SCHEMA",
+					"table": "BRIDGE_TITLE_AKAS"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/regionscsv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorageIMDB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "regions_cleaned.csv",
+						"fileSystem": "bronz"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "RegionCode",
+						"type": "String"
+					},
+					{
+						"name": "RegionDescription",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Genre_Dataflow')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_Flat_title_basic",
+								"type": "DatasetReference"
+							},
+							"name": "sourceTitleBasics"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_Genre",
+								"type": "DatasetReference"
+							},
+							"name": "sinkGenre",
+							"description": "Export data to DIM Genre",
+							"rejectedDataLinkedService": {
+								"referenceName": "linkedService_stg",
+								"type": "LinkedServiceReference"
+							}
+						}
+					],
+					"transformations": [
+						{
+							"name": "selectGenres"
+						},
+						{
+							"name": "surrogateKeyGenre"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          TCONST as string,",
+						"          TITLETYPE as string,",
+						"          PRIMARYTITLE as string,",
+						"          ORIGINALTITLE as string,",
+						"          ISADULT as string,",
+						"          STARTYEAR as decimal(38,0),",
+						"          ENDYEAR as decimal(38,0),",
+						"          RUNTIMEMINUTES as decimal(38,0),",
+						"          GENRES as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table') ~> sourceTitleBasics",
+						"sourceTitleBasics select(mapColumn(",
+						"          GENRES,",
+						"          DI_JOB_ID,",
+						"          DI_LOAD_DT",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> selectGenres",
+						"selectGenres keyGenerate(output(GenreKey as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> surrogateKeyGenre",
+						"surrogateKeyGenre sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          GENREKEY as decimal(10,0),",
+						"          GENRENAME as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     stageInsert: true,",
+						"     mapColumn(",
+						"          GENRENAME = GENRES,",
+						"          DI_JOB_ID,",
+						"          DI_LOAD_DT,",
+						"          GENREKEY = GenreKey",
+						"     )) ~> sinkGenre"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Genre_Flatten')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_Title_Basic_Satge",
+								"type": "DatasetReference"
+							},
+							"name": "titlebasicflatten",
+							"description": "flatenning title basics genres"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_Flat_title_basic",
+								"type": "DatasetReference"
+							},
+							"name": "sinkFlatTitleBasics",
+							"description": "Export data to Flat title basics after flattening the rows"
+						}
+					],
+					"transformations": [
+						{
+							"name": "FlattenColumn"
+						},
+						{
+							"name": "flattenCondition"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          TCONST as string,",
+						"          TITLETYPE as string,",
+						"          PRIMARYTITLE as string,",
+						"          ORIGINALTITLE as string,",
+						"          ISADULT as string,",
+						"          STARTYEAR as decimal(38,0),",
+						"          ENDYEAR as decimal(38,0),",
+						"          RUNTIMEMINUTES as decimal(38,0),",
+						"          GENRES as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table') ~> titlebasicflatten",
+						"titlebasicflatten derive(GENRES_ARRAY = split(GENRES, ',')) ~> FlattenColumn",
+						"FlattenColumn foldDown(unroll(GENRES_ARRAY),",
+						"     mapColumn(",
+						"          TCONST,",
+						"          TITLETYPE,",
+						"          PRIMARYTITLE,",
+						"          ORIGINALTITLE,",
+						"          ISADULT,",
+						"          STARTYEAR,",
+						"          ENDYEAR,",
+						"          RUNTIMEMINUTES,",
+						"          GENRES = GENRES_ARRAY,",
+						"          DI_JOB_ID,",
+						"          DI_LOAD_DT",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> flattenCondition",
+						"flattenCondition sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          TCONST as string,",
+						"          TITLETYPE as string,",
+						"          PRIMARYTITLE as string,",
+						"          ORIGINALTITLE as string,",
+						"          ISADULT as string,",
+						"          STARTYEAR as decimal(38,0),",
+						"          ENDYEAR as decimal(38,0),",
+						"          RUNTIMEMINUTES as decimal(38,0),",
+						"          GENRES as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     stageInsert: true,",
+						"     mapColumn(",
+						"          TCONST,",
+						"          TITLETYPE,",
+						"          PRIMARYTITLE,",
+						"          ORIGINALTITLE,",
+						"          ISADULT,",
+						"          STARTYEAR,",
+						"          ENDYEAR,",
+						"          RUNTIMEMINUTES,",
+						"          GENRES,",
+						"          DI_JOB_ID,",
+						"          DI_LOAD_DT",
+						"     )) ~> sinkFlatTitleBasics"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SnowflakeTable_Title_Basic_Satge')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Rating_Dataflow')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_Rating_Stage",
+								"type": "DatasetReference"
+							},
+							"name": "sourceRating",
+							"description": "Load data from stage title ratings"
+						},
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_Title",
+								"type": "DatasetReference"
+							},
+							"name": "sourceTitle",
+							"description": "Import data from stage_title_basic"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_Rating",
+								"type": "DatasetReference"
+							},
+							"name": "sinkRatings",
+							"description": "Export data to SnowflakeTable_Fact_Title_Ratings",
+							"rejectedDataLinkedService": {
+								"referenceName": "linkedService_stg",
+								"type": "LinkedServiceReference"
+							}
+						}
+					],
+					"transformations": [
+						{
+							"name": "joinSourceRating"
+						},
+						{
+							"name": "selectRating"
+						},
+						{
+							"name": "surrogateKeyRating",
+							"description": "Adding new key RowNum starting from 1 with step 1"
+						},
+						{
+							"name": "select1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          TCONST as string,",
+						"          AVERAGERATING as double,",
+						"          NUMVOTES as decimal(38,0),",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table') ~> sourceRating",
+						"source(output(",
+						"          TITLEKEY as decimal(10,0),",
+						"          TCONST as string,",
+						"          TITLETYPE as string,",
+						"          PRIMARYTITLE as string,",
+						"          ORIGINALTITLE as string,",
+						"          STARTYEAR as decimal(38,0),",
+						"          ENDYEAR as decimal(38,0),",
+						"          RUNTIMEMINUTES as decimal(38,0),",
+						"          ISADULT as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table') ~> sourceTitle",
+						"sourceRating, sourceTitle join(sourceRating@TCONST == sourceTitle@TCONST,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> joinSourceRating",
+						"joinSourceRating select(mapColumn(",
+						"          AVERAGERATING,",
+						"          NUMVOTES,",
+						"          DI_JOB_ID = sourceRating@DI_JOB_ID,",
+						"          DI_LOAD_DT = sourceRating@DI_LOAD_DT,",
+						"          TITLEKEY",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> selectRating",
+						"selectRating keyGenerate(output(RatingKey as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> surrogateKeyRating",
+						"surrogateKeyRating select(mapColumn(",
+						"          AVERAGERATING,",
+						"          NUMVOTES,",
+						"          DI_JOB_ID,",
+						"          DI_LOAD_DT,",
+						"          TITLEKEY,",
+						"          RatingKey",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select1",
+						"select1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          RATINGKEY as decimal(10,0),",
+						"          TITLEKEY as decimal(10,0),",
+						"          AVERAGERATING as double,",
+						"          NUMVOTES as decimal(38,0),",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     stageInsert: true,",
+						"     mapColumn(",
+						"          RATINGKEY = RatingKey,",
+						"          TITLEKEY,",
+						"          AVERAGERATING,",
+						"          NUMVOTES,",
+						"          DI_JOB_ID,",
+						"          DI_LOAD_DT",
+						"     )) ~> sinkRatings"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Title_Basics_Dataflow')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_IMDB",
+								"type": "DatasetReference"
+							},
+							"name": "SourceTitle",
+							"description": "Import data from stage_title_basic"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_Dim_Title",
+								"type": "DatasetReference"
+							},
+							"name": "sinkDIMTITLE"
+						}
+					],
+					"transformations": [
+						{
+							"name": "selectColumns"
+						},
+						{
+							"name": "surrogateKeyForTitle",
+							"description": "Adding new key RowNum starting from 1 with step 1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          TCONST as string,",
+						"          TITLETYPE as string,",
+						"          PRIMARYTITLE as string,",
+						"          ORIGINALTITLE as string,",
+						"          ISADULT as string,",
+						"          STARTYEAR as decimal(38,0),",
+						"          ENDYEAR as decimal(38,0),",
+						"          RUNTIMEMINUTES as decimal(38,0),",
+						"          GENRES as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table') ~> SourceTitle",
+						"SourceTitle select(mapColumn(",
+						"          TCONST,",
+						"          TITLETYPE,",
+						"          PRIMARYTITLE,",
+						"          ORIGINALTITLE,",
+						"          ISADULT,",
+						"          STARTYEAR,",
+						"          ENDYEAR,",
+						"          RUNTIMEMINUTES,",
+						"          DI_JOB_ID,",
+						"          DI_LOAD_DT",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> selectColumns",
+						"selectColumns keyGenerate(output(RowNum as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> surrogateKeyForTitle",
+						"surrogateKeyForTitle sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          TITLEKEY as decimal(10,0),",
+						"          TCONST as string,",
+						"          TITLETYPE as string,",
+						"          PRIMARYTITLE as string,",
+						"          ORIGINALTITLE as string,",
+						"          STARTYEAR as decimal(38,0),",
+						"          ENDYEAR as decimal(38,0),",
+						"          RUNTIMEMINUTES as decimal(38,0),",
+						"          ISADULT as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     stageInsert: true,",
+						"     mapColumn(",
+						"          TITLEKEY = RowNum,",
+						"          TCONST,",
+						"          TITLETYPE,",
+						"          PRIMARYTITLE,",
+						"          ORIGINALTITLE,",
+						"          STARTYEAR,",
+						"          ENDYEAR,",
+						"          RUNTIMEMINUTES,",
+						"          ISADULT,",
+						"          DI_JOB_ID,",
+						"          DI_LOAD_DT",
+						"     )) ~> sinkDIMTITLE"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Title_principal_dataflow')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_principal",
+								"type": "DatasetReference"
+							},
+							"name": "sourcePrincipal"
+						},
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_Title",
+								"type": "DatasetReference"
+							},
+							"name": "sourceTitleBasic"
+						},
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_Name_basic",
+								"type": "DatasetReference"
+							},
+							"name": "sourceNameBasic",
+							"description": "Import dataset from Name Basic"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "SnowflakeTable_Principal_Fact",
+								"type": "DatasetReference"
+							},
+							"name": "sinkPrincipal",
+							"description": "Export data to FACT_TITLE_PRINCIPAL"
+						}
+					],
+					"transformations": [
+						{
+							"name": "joinTitlePrincipal"
+						},
+						{
+							"name": "joinNamePrincipal"
+						},
+						{
+							"name": "selectColumns"
+						},
+						{
+							"name": "surrogateKeyPrincipal"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          TCONST as string,",
+						"          ORDERING as decimal(38,0),",
+						"          NCONST as string,",
+						"          CATEGORY as string,",
+						"          JOB as string,",
+						"          CHARACTERS as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table') ~> sourcePrincipal",
+						"source(output(",
+						"          TITLEKEY as decimal(10,0),",
+						"          TCONST as string,",
+						"          TITLETYPE as string,",
+						"          PRIMARYTITLE as string,",
+						"          ORIGINALTITLE as string,",
+						"          STARTYEAR as decimal(38,0),",
+						"          ENDYEAR as decimal(38,0),",
+						"          RUNTIMEMINUTES as decimal(38,0),",
+						"          ISADULT as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table') ~> sourceTitleBasic",
+						"source(output(",
+						"          NAMEKEY as decimal(10,0),",
+						"          NCONST as string,",
+						"          PRIMARYNAME as string,",
+						"          BIRTHYEAR as decimal(38,0),",
+						"          DEATHYEAR as decimal(38,0),",
+						"          KNOWNFORTITLES as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table') ~> sourceNameBasic",
+						"sourcePrincipal, sourceTitleBasic join(sourcePrincipal@TCONST == sourceTitleBasic@TCONST,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> joinTitlePrincipal",
+						"joinTitlePrincipal, sourceNameBasic join(sourcePrincipal@NCONST == sourceNameBasic@NCONST,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> joinNamePrincipal",
+						"joinNamePrincipal select(mapColumn(",
+						"          ORDERING,",
+						"          CATEGORY,",
+						"          JOB,",
+						"          CHARACTERS,",
+						"          TITLEKEY,",
+						"          NAMEKEY,",
+						"          DI_JOB_ID = sourcePrincipal@DI_JOB_ID,",
+						"          DI_LOAD_DT = sourcePrincipal@DI_LOAD_DT",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> selectColumns",
+						"selectColumns keyGenerate(output(PrincipalKey as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> surrogateKeyPrincipal",
+						"surrogateKeyPrincipal sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          PRINCIPALKEY as decimal(10,0),",
+						"          TITLEKEY as decimal(10,0),",
+						"          NAMEKEY as decimal(10,0),",
+						"          ORDERING as decimal(38,0),",
+						"          CATEGORY as string,",
+						"          JOB as string,",
+						"          CHARACTERS as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     stageInsert: true,",
+						"     mapColumn(",
+						"          PRINCIPALKEY = PrincipalKey,",
+						"          TITLEKEY,",
+						"          NAMEKEY,",
+						"          ORDERING,",
+						"          CATEGORY,",
+						"          JOB,",
+						"          CHARACTERS,",
+						"          DI_JOB_ID,",
+						"          DI_LOAD_DT",
+						"     )) ~> sinkPrincipal"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SnowflakeTable_principal')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflowBridge_Akas')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "STGAKA",
+								"type": "DatasetReference"
+							},
+							"name": "StageAka"
+						},
+						{
+							"dataset": {
+								"referenceName": "DIMREG",
+								"type": "DatasetReference"
+							},
+							"name": "DimRegion"
+						},
+						{
+							"dataset": {
+								"referenceName": "DIMLANG",
+								"type": "DatasetReference"
+							},
+							"name": "DimLang"
+						},
+						{
+							"dataset": {
+								"referenceName": "DIMTITLE",
+								"type": "DatasetReference"
+							},
+							"name": "DimTitle"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "bridge_akas",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "selectAKA"
+						},
+						{
+							"name": "selectREGION"
+						},
+						{
+							"name": "selectLANG"
+						},
+						{
+							"name": "selectTITLE"
+						},
+						{
+							"name": "join1"
+						},
+						{
+							"name": "derivedColumn1"
+						},
+						{
+							"name": "join2"
+						},
+						{
+							"name": "select1"
+						},
+						{
+							"name": "join3"
+						},
+						{
+							"name": "surrogateKey1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          TITLEID as string,",
+						"          ORDERING as decimal(38,0),",
+						"          TITLE as string,",
+						"          REGION as string,",
+						"          LANGUAGE as string,",
+						"          TYPES as string,",
+						"          ATTRIBUTES as string,",
+						"          ISORIGINALTITLE as decimal(38,0),",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table') ~> StageAka",
+						"source(output(",
+						"          REGIONKEY as decimal(10,0),",
+						"          REGIONCODE as string,",
+						"          REGIONNAME as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table') ~> DimRegion",
+						"source(output(",
+						"          LANGUAGEKEY as decimal(10,0),",
+						"          LANGUAGECODE as string,",
+						"          LANGUAGEDESCRIPTION as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table') ~> DimLang",
+						"source(output(",
+						"          TITLEKEY as decimal(10,0),",
+						"          TCONST as string,",
+						"          TITLETYPE as string,",
+						"          PRIMARYTITLE as string,",
+						"          ORIGINALTITLE as string,",
+						"          STARTYEAR as decimal(38,0),",
+						"          ENDYEAR as decimal(38,0),",
+						"          RUNTIMEMINUTES as decimal(38,0),",
+						"          ISADULT as string,",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table') ~> DimTitle",
+						"StageAka select(mapColumn(",
+						"          TITLEID,",
+						"          TITLE,",
+						"          REGION,",
+						"          LANGUAGE,",
+						"          ISORIGINALTITLE,",
+						"          DI_JOB_ID,",
+						"          DI_LOAD_DT",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> selectAKA",
+						"DimRegion select(mapColumn(",
+						"          REGIONKEY,",
+						"          REGIONCODE",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> selectREGION",
+						"DimLang select(mapColumn(",
+						"          LANGUAGEKEY,",
+						"          LANGUAGECODE",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> selectLANG",
+						"DimTitle select(mapColumn(",
+						"          TITLEKEY,",
+						"          TCONST,",
+						"          DI_JOB_ID,",
+						"          DI_LOAD_DT",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> selectTITLE",
+						"derivedColumn1, selectREGION join(REGION_LOWER == REGIONCODE,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join1",
+						"selectAKA derive(REGION_LOWER = lower(trim(REGION))) ~> derivedColumn1",
+						"select1, selectLANG join(LANGUAGE == LANGUAGECODE,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join2",
+						"join1 select(mapColumn(",
+						"          TITLEID,",
+						"          TITLE,",
+						"          LANGUAGE,",
+						"          ISORIGINALTITLE,",
+						"          REGION_LOWER,",
+						"          REGIONKEY",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> select1",
+						"join2, selectTITLE join(TITLEID == TCONST,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join3",
+						"join3 keyGenerate(output(RowNum as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> surrogateKey1",
+						"surrogateKey1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          TITLEAKAKEY as decimal(10,0),",
+						"          REGIONKEY as decimal(10,0),",
+						"          LANGUAGEKEY as decimal(10,0),",
+						"          TITLEKEY as decimal(10,0),",
+						"          AKATITLE as string,",
+						"          ISORIGINALTITLE as decimal(38,0),",
+						"          DI_JOB_ID as string,",
+						"          DI_LOAD_DT as date",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     stageInsert: true,",
+						"     mapColumn(",
+						"          TITLEAKAKEY = RowNum,",
+						"          REGIONKEY,",
+						"          LANGUAGEKEY,",
+						"          TITLEKEY,",
+						"          AKATITLE = TITLE,",
+						"          ISORIGINALTITLE,",
+						"          DI_JOB_ID,",
+						"          DI_LOAD_DT",
+						"     )) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/bridge_akas')]"
+			]
+		}
+	]
+}

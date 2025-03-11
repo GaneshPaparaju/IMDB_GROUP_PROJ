@@ -1,0 +1,66 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "IMDB010"
+		},
+		"IMDB_password": {
+			"value": ""
+		},
+		"Snowflake1_password": {
+			"value": ""
+		},
+		"Snowflake_IMDB_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://damg7370gp.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorageIMDB_properties_typeProperties_url": {
+			"value": "https://damg7370gp.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage_Blob_MidTerm_properties_typeProperties_url": {
+			"value": "https://damg7370spring.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage_Group_properties_typeProperties_url": {
+			"value": "https://damg7370gp.dfs.core.windows.net/"
+		},
+		"AzureKeyVault2_properties_typeProperties_baseUrl": {
+			"value": "https://damg7370kvgp.vault.azure.net/"
+		},
+		"IMDB_properties_typeProperties_database": {
+			"value": "GROUP_DB"
+		},
+		"IMDB_properties_typeProperties_role": {
+			"value": "DEV2_ROLE"
+		},
+		"Snowflake1_properties_typeProperties_database": {
+			"value": "GROUP_DB"
+		},
+		"Snowflake1_properties_typeProperties_role": {
+			"value": "DEV2_ROLE"
+		},
+		"Snowflake_IMDB_properties_typeProperties_database": {
+			"value": "GROUP_DB"
+		},
+		"Snowflake_IMDB_properties_typeProperties_role": {
+			"value": "DEV2_ROLE"
+		},
+		"blobstage_sasUri": {
+			"value": ""
+		},
+		"linkedService1_sasUri": {
+			"value": ""
+		},
+		"linkedService_stg_sasUri": {
+			"value": ""
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
