@@ -5,54 +5,20 @@
 		"typeProperties": {
 			"sources": [
 				{
-					"dataset": {
-						"referenceName": "SnowflakeTableBrigeAka",
-						"type": "DatasetReference"
-					},
 					"name": "DIMtitle"
 				},
 				{
-					"dataset": {
-						"referenceName": "SnowflakeTablel_lang",
-						"type": "DatasetReference"
-					},
 					"name": "dimLang"
 				},
 				{
-					"dataset": {
-						"referenceName": "SnowflakeTableregion",
-						"type": "DatasetReference"
-					},
 					"name": "dimRegion"
 				},
 				{
-					"dataset": {
-						"referenceName": "SnowflakeTableStgAKAS",
-						"type": "DatasetReference"
-					},
 					"name": "stageAkas"
 				}
 			],
-			"sinks": [
-				{
-					"dataset": {
-						"referenceName": "SnowflakeTableBRIDGE_AKA",
-						"type": "DatasetReference"
-					},
-					"name": "BRIDGEAKAsink"
-				}
-			],
-			"transformations": [
-				{
-					"name": "join1"
-				},
-				{
-					"name": "select1"
-				},
-				{
-					"name": "surrogateKey1"
-				}
-			],
+			"sinks": [],
+			"transformations": [],
 			"scriptLines": [
 				"source(output(",
 				"          TITLEKEY as decimal(10,0),",
@@ -68,8 +34,7 @@
 				"          DI_LOAD_DT as date",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     format: 'table') ~> DIMtitle",
+				"     validateSchema: false) ~> DIMtitle",
 				"source(output(",
 				"          LANGUAGEKEY as decimal(10,0),",
 				"          LANGUAGECODE as string,",
@@ -78,8 +43,7 @@
 				"          DI_LOAD_DT as date",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     format: 'table') ~> dimLang",
+				"     validateSchema: false) ~> dimLang",
 				"source(output(",
 				"          REGIONKEY as decimal(10,0),",
 				"          REGIONCODE as string,",
@@ -88,8 +52,7 @@
 				"          DI_LOAD_DT as date",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     format: 'table') ~> dimRegion",
+				"     validateSchema: false) ~> dimRegion",
 				"source(output(",
 				"          TITLEID as string,",
 				"          ORDERING as decimal(38,0),",
@@ -103,55 +66,7 @@
 				"          DI_LOAD_DT as date",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     format: 'table') ~> stageAkas",
-				"stageAkas, DIMtitle join(TITLEID == TCONST,",
-				"     joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join1",
-				"join1 select(mapColumn(",
-				"          TITLE,",
-				"          ISORIGINALTITLE,",
-				"          TITLEKEY,",
-				"          REGIONKEY,",
-				"          LANGUAGEKEY,",
-				"          DI_JOB_ID = stageAkas@DI_JOB_ID,",
-				"          DI_LOAD_DT = stageAkas@DI_LOAD_DT",
-				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> select1",
-				"select1 keyGenerate(output(RowNum as long),",
-				"     startAt: 1L,",
-				"     stepValue: 1L) ~> surrogateKey1",
-				"surrogateKey1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     input(",
-				"          TITLEAKAKEY as decimal(10,0),",
-				"          REGIONKEY as decimal(10,0),",
-				"          LANGUAGEKEY as decimal(10,0),",
-				"          TITLEKEY as decimal(10,0),",
-				"          AKATITLE as string,",
-				"          ISORIGINALTITLE as decimal(38,0),",
-				"          DI_JOB_ID as string,",
-				"          DI_LOAD_DT as date",
-				"     ),",
-				"     deletable:false,",
-				"     insertable:true,",
-				"     updateable:false,",
-				"     upsertable:false,",
-				"     format: 'table',",
-				"     stageInsert: true,",
-				"     mapColumn(",
-				"          TITLEAKAKEY = RowNum,",
-				"          REGIONKEY,",
-				"          LANGUAGEKEY,",
-				"          TITLEKEY,",
-				"          AKATITLE = TITLE,",
-				"          ISORIGINALTITLE,",
-				"          DI_JOB_ID,",
-				"          DI_LOAD_DT",
-				"     )) ~> BRIDGEAKAsink"
+				"     validateSchema: false) ~> stageAkas"
 			]
 		}
 	}
