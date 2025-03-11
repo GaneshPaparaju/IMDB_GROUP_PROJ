@@ -1,0 +1,65 @@
+{
+	"name": "Title_Basics",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_Group",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
+				"fileSystem": "silver"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "tconst",
+				"type": "UTF8"
+			},
+			{
+				"name": "titleType",
+				"type": "UTF8"
+			},
+			{
+				"name": "primaryTitle",
+				"type": "UTF8"
+			},
+			{
+				"name": "originalTitle",
+				"type": "UTF8"
+			},
+			{
+				"name": "isAdult",
+				"type": "UTF8"
+			},
+			{
+				"name": "startYear",
+				"type": "INT64"
+			},
+			{
+				"name": "endYear",
+				"type": "INT64"
+			},
+			{
+				"name": "runtimeMinutes",
+				"type": "INT64"
+			},
+			{
+				"name": "genres",
+				"type": "UTF8"
+			}
+		]
+	}
+}
