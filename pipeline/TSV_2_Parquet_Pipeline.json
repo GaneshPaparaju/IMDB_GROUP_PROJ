@@ -499,7 +499,13 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "dataflow_BridgeTitleGenre",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"parameters": {
+							"Job_Id": {
+								"value": "'@{pipeline().RunId}'",
+								"type": "Expression"
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
