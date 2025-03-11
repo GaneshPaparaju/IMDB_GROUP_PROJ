@@ -5,68 +5,34 @@
 		"typeProperties": {
 			"sources": [
 				{
-					"name": "DIMtitle"
+					"dataset": {
+						"referenceName": "STGAKA",
+						"type": "DatasetReference"
+					},
+					"name": "StageAka"
 				},
 				{
-					"name": "dimLang"
+					"name": "DimRegion"
 				},
 				{
-					"name": "dimRegion"
+					"name": "DimLang"
 				},
 				{
-					"name": "stageAkas"
+					"name": "DimTitle"
 				}
 			],
 			"sinks": [],
 			"transformations": [],
 			"scriptLines": [
-				"source(output(",
-				"          TITLEKEY as decimal(10,0),",
-				"          TCONST as string,",
-				"          TITLETYPE as string,",
-				"          PRIMARYTITLE as string,",
-				"          ORIGINALTITLE as string,",
-				"          STARTYEAR as decimal(38,0),",
-				"          ENDYEAR as decimal(38,0),",
-				"          RUNTIMEMINUTES as decimal(38,0),",
-				"          ISADULT as string,",
-				"          DI_JOB_ID as string,",
-				"          DI_LOAD_DT as date",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> DIMtitle",
-				"source(output(",
-				"          LANGUAGEKEY as decimal(10,0),",
-				"          LANGUAGECODE as string,",
-				"          LANGUAGEDESCRIPTION as string,",
-				"          DI_JOB_ID as string,",
-				"          DI_LOAD_DT as date",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> dimLang",
-				"source(output(",
-				"          REGIONKEY as decimal(10,0),",
-				"          REGIONCODE as string,",
-				"          REGIONNAME as string,",
-				"          DI_JOB_ID as string,",
-				"          DI_LOAD_DT as date",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> dimRegion",
-				"source(output(",
-				"          TITLEID as string,",
-				"          ORDERING as decimal(38,0),",
-				"          TITLE as string,",
-				"          REGION as string,",
-				"          LANGUAGE as string,",
-				"          TYPES as string,",
-				"          ATTRIBUTES as string,",
-				"          ISORIGINALTITLE as decimal(38,0),",
-				"          DI_JOB_ID as string,",
-				"          DI_LOAD_DT as date",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> stageAkas"
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> StageAka",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> DimRegion",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> DimLang",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> DimTitle"
 			]
 		}
 	}
