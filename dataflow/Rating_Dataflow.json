@@ -7,6 +7,7 @@
 				{
 					"dataset": {
 						"referenceName": "SnowflakeTable_Rating_Stage",
+
 						"type": "DatasetReference"
 					},
 					"name": "sourceRating",

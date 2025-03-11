@@ -1,0 +1,53 @@
+{
+	"name": "Parquet_NAME_BASICS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorageIMDB",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
+				"fileSystem": "silver"
+			},
+			"compressionCodec": "none"
+		},
+		"schema": [
+			{
+				"name": "nconst",
+				"type": "UTF8"
+			},
+			{
+				"name": "primaryName",
+				"type": "UTF8"
+			},
+			{
+				"name": "birthYear",
+				"type": "INT64"
+			},
+			{
+				"name": "deathYear",
+				"type": "INT64"
+			},
+			{
+				"name": "primaryProfession",
+				"type": "UTF8"
+			},
+			{
+				"name": "knownForTitles",
+				"type": "UTF8"
+			}
+		]
+	}
+}
