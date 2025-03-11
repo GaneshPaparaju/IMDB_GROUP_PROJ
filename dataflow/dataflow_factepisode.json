@@ -16,14 +16,14 @@
 						"referenceName": "SnowflakeTableDimTitle1",
 						"type": "DatasetReference"
 					},
-					"name": "DimTitle"
+					"name": "DimTitleEpisode"
 				},
 				{
 					"dataset": {
 						"referenceName": "SnowflakeTable_Dim_Title",
 						"type": "DatasetReference"
 					},
-					"name": "sourceDimTitle2"
+					"name": "DimTitleParent"
 				}
 			],
 			"sinks": [
@@ -91,7 +91,7 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'table') ~> DimTitle",
+				"     format: 'table') ~> DimTitleEpisode",
 				"source(output(",
 				"          TITLEKEY as decimal(10,0),",
 				"          TCONST as string,",
@@ -107,7 +107,7 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'table') ~> sourceDimTitle2",
+				"     format: 'table') ~> DimTitleParent",
 				"sourceStageTitleEpisode select(mapColumn(",
 				"          TCONST,",
 				"          PARENTTCONST,",
@@ -116,13 +116,13 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> select1",
-				"DimTitle select(mapColumn(",
+				"DimTitleEpisode select(mapColumn(",
 				"          TITLEKEY,",
 				"          TCONST",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> select2",
-				"sourceDimTitle2 select(mapColumn(",
+				"DimTitleParent select(mapColumn(",
 				"          TITLEKEY,",
 				"          TCONST,",
 				"          PRIMARYTITLE",
