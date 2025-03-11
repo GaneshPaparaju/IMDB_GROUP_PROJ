@@ -37,12 +37,6 @@
 			],
 			"transformations": [
 				{
-					"name": "select1"
-				},
-				{
-					"name": "select2"
-				},
-				{
 					"name": "select3"
 				},
 				{
@@ -68,6 +62,15 @@
 				},
 				{
 					"name": "derivedColumn3"
+				},
+				{
+					"name": "select6"
+				},
+				{
+					"name": "select7"
+				},
+				{
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -115,31 +118,19 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table') ~> DimGenre",
-				"FlattenedTitleBasics select(mapColumn(",
-				"          TCONST,",
-				"          GENRES",
-				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> select1",
-				"DimTitle1 select(mapColumn(",
-				"          TITLEKEY,",
-				"          TCONST",
-				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> select2",
 				"DimGenre select(mapColumn(",
 				"          GENREKEY,",
 				"          GENRENAME",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> select3",
-				"derivedColumn1, derivedColumn2 join(TCONST_TRIM == TITLE_TCONST_TRIM,",
+				"select6, select7 join(TCONST == TITLE_TCONST_TRIM,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join1",
-				"select1 derive(TCONST_TRIM = lower(trim(TCONST))) ~> derivedColumn1",
-				"select2 derive(TITLE_TCONST_TRIM = lower(trim(TCONST))) ~> derivedColumn2",
+				"FlattenedTitleBasics derive(GENRES_TRIM = trim(GENRES)) ~> derivedColumn1",
+				"DimTitle1 derive(TITLE_TCONST_TRIM = lower(trim(TCONST))) ~> derivedColumn2",
 				"join1 select(mapColumn(",
 				"          GENRES,",
 				"          TITLEKEY",
@@ -154,7 +145,7 @@
 				"select5 keyGenerate(output(RowNum as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> surrogateKey1",
-				"join2 select(mapColumn(",
+				"filter1 select(mapColumn(",
 				"          TITLEKEY,",
 				"          GENREKEY",
 				"     ),",
@@ -162,6 +153,20 @@
 				"     skipDuplicateMapOutputs: false) ~> select5",
 				"surrogateKey1 derive(DI_JOB_ID = $JOB_ID,",
 				"          DI_LOAD_DT = currentDate()) ~> derivedColumn3",
+				"derivedColumn1 select(mapColumn(",
+				"          GENRES = GENRES_TRIM,",
+				"          TCONST",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select6",
+				"derivedColumn2 select(mapColumn(",
+				"          TITLEKEY,",
+				"          TITLE_TCONST_TRIM",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select7",
+				"join2 filter(!isNull(TITLEKEY) && !isNull(GENREKEY)",
+				") ~> filter1",
 				"derivedColumn3 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
