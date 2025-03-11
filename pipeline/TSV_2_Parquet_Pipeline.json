@@ -106,7 +106,10 @@
 				"outputs": [
 					{
 						"referenceName": "Parquet1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "episodes.parquet"
+						}
 					}
 				]
 			},
@@ -242,7 +245,10 @@
 				"inputs": [
 					{
 						"referenceName": "Parquet1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "episodes.parquet"
+						}
 					}
 				]
 			},
