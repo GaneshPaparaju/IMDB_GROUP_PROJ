@@ -1,0 +1,135 @@
+{
+	"name": "Rating_Dataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_IMDB",
+						"type": "DatasetReference"
+					},
+					"name": "sourceRating",
+					"description": "Load data from stage title ratings"
+				},
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_Title",
+						"type": "DatasetReference"
+					},
+					"name": "sourceTitle",
+					"description": "Import data from stage_title_basic"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_Rating",
+						"type": "DatasetReference"
+					},
+					"name": "sinkRatings",
+					"description": "Export data to SnowflakeTable_Fact_Title_Ratings",
+					"rejectedDataLinkedService": {
+						"referenceName": "linkedService_stg",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "joinSourceRating"
+				},
+				{
+					"name": "selectRating"
+				},
+				{
+					"name": "surrogateKeyRating",
+					"description": "Adding new key RowNum starting from 1 with step 1"
+				},
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          TCONST as string,",
+				"          AVERAGERATING as double,",
+				"          NUMVOTES as decimal(38,0),",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourceRating",
+				"source(output(",
+				"          TITLEKEY as decimal(10,0),",
+				"          TCONST as string,",
+				"          TITLETYPE as string,",
+				"          PRIMARYTITLE as string,",
+				"          ORIGINALTITLE as string,",
+				"          STARTYEAR as decimal(38,0),",
+				"          ENDYEAR as decimal(38,0),",
+				"          RUNTIMEMINUTES as decimal(38,0),",
+				"          ISADULT as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourceTitle",
+				"sourceRating, sourceTitle join(sourceRating@TCONST == sourceTitle@TCONST,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinSourceRating",
+				"joinSourceRating select(mapColumn(",
+				"          AVERAGERATING,",
+				"          NUMVOTES,",
+				"          DI_JOB_ID = sourceRating@DI_JOB_ID,",
+				"          DI_LOAD_DT = sourceRating@DI_LOAD_DT,",
+				"          TITLEKEY",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> selectRating",
+				"selectRating keyGenerate(output(RatingKey as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKeyRating",
+				"surrogateKeyRating select(mapColumn(",
+				"          AVERAGERATING,",
+				"          NUMVOTES,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT,",
+				"          TITLEKEY,",
+				"          RatingKey",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          RATINGKEY as decimal(10,0),",
+				"          TITLEKEY as decimal(10,0),",
+				"          AVERAGERATING as double,",
+				"          NUMVOTES as decimal(38,0),",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     truncate:true,",
+				"     format: 'table',",
+				"     stageInsert: true,",
+				"     mapColumn(",
+				"          RATINGKEY = RatingKey,",
+				"          TITLEKEY,",
+				"          AVERAGERATING,",
+				"          NUMVOTES,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT",
+				"     )) ~> sinkRatings"
+			]
+		}
+	}
+}
