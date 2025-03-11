@@ -19,11 +19,7 @@
 						"referenceName": "SnowflakeTable_Dim_Title",
 						"type": "DatasetReference"
 					},
-					"name": "sinkDIMTITLE",
-					"rejectedDataLinkedService": {
-						"referenceName": "linkedService_stg",
-						"type": "LinkedServiceReference"
-					}
+					"name": "sinkDIMTITLE"
 				}
 			],
 			"transformations": [
@@ -38,8 +34,14 @@
 			"scriptLines": [
 				"source(output(",
 				"          TCONST as string,",
-				"          AVERAGERATING as double,",
-				"          NUMVOTES as decimal(38,0),",
+				"          TITLETYPE as string,",
+				"          PRIMARYTITLE as string,",
+				"          ORIGINALTITLE as string,",
+				"          ISADULT as string,",
+				"          STARTYEAR as decimal(38,0),",
+				"          ENDYEAR as decimal(38,0),",
+				"          RUNTIMEMINUTES as decimal(38,0),",
+				"          GENRES as string,",
 				"          DI_JOB_ID as string,",
 				"          DI_LOAD_DT as date",
 				"     ),",
