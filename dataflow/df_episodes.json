@@ -5,22 +5,10 @@
 		"typeProperties": {
 			"sources": [
 				{
-					"dataset": {
-						"referenceName": "Parquet1",
-						"type": "DatasetReference"
-					},
 					"name": "episodes"
 				}
 			],
-			"sinks": [
-				{
-					"dataset": {
-						"referenceName": "SnowflakeTableEpisodes",
-						"type": "DatasetReference"
-					},
-					"name": "sink1"
-				}
-			],
+			"sinks": [],
 			"transformations": [
 				{
 					"name": "surrogateKey1",
@@ -28,36 +16,11 @@
 				}
 			],
 			"scriptLines": [
-				"source(output(",
-				"          tconst as string,",
-				"          parentTconst as string,",
-				"          seasonNumber as long,",
-				"          episodeNumber as long",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false,",
-				"     format: 'parquet') ~> episodes",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> episodes",
 				"episodes keyGenerate(output(episode_key as long),",
 				"     startAt: 1L,",
-				"     stepValue: 1L) ~> surrogateKey1",
-				"surrogateKey1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     input(",
-				"          TCONST as string,",
-				"          PARENTTCONST as string,",
-				"          SEASONNUMBER as decimal(38,0),",
-				"          EPISODENUMBER as decimal(38,0),",
-				"          DI_JOB_ID as string,",
-				"          DI_LOAD_DT as date",
-				"     ),",
-				"     deletable:false,",
-				"     insertable:true,",
-				"     updateable:false,",
-				"     upsertable:false,",
-				"     format: 'table',",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     stepValue: 1L) ~> surrogateKey1"
 			]
 		}
 	}

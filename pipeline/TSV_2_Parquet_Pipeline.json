@@ -250,12 +250,6 @@
 							"filename": "episodes.parquet"
 						}
 					}
-				],
-				"outputs": [
-					{
-						"referenceName": "SnowflakeTableEpisodes",
-						"type": "DatasetReference"
-					}
 				]
 			},
 			{
