@@ -1,5 +1,5 @@
 {
-	"name": "dataflow1",
+	"name": "dataflow_BridgeTitleGenre",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -112,9 +112,9 @@
 				"     broadcast: 'auto')~> join2",
 				"join2 select(mapColumn(",
 				"          GENREKEY,",
-				"          DI_JOB_ID = dimGenre@DI_JOB_ID,",
-				"          DI_LOAD_DT = dimGenre@DI_LOAD_DT,",
-				"          TITLEKEY",
+				"          TITLEKEY,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> select1",
@@ -157,9 +157,14 @@
 				"     updateable:false,",
 				"     upsertable:false,",
 				"     format: 'table',",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     stageInsert: true) ~> sink1"
+				"     stageInsert: true,",
+				"     mapColumn(",
+				"          TITLEGENREKEY = RowNum,",
+				"          GENREKEY,",
+				"          TITLEKEY,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT",
+				"     )) ~> sink1"
 			]
 		}
 	}
