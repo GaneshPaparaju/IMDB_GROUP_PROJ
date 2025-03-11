@@ -62,6 +62,9 @@
 				},
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "aggregate1"
 				}
 			],
 			"scriptLines": [
@@ -156,8 +159,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> select5",
-				"surrogateKey1 derive(DI_JOB_ID = $Job_Id,",
+				"aggregate1 derive(DI_JOB_ID = $Job_Id,",
 				"          DI_LOAD_DT = currentDate()) ~> derivedColumn1",
+				"surrogateKey1 aggregate(groupBy(GENREKEY,",
+				"          TITLEKEY,",
+				"          RowNum)) ~> aggregate1",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
