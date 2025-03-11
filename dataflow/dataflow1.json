@@ -102,7 +102,7 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join1",
-				"select3, dimTitle join(select2@TCONST == dimTitle@TCONST,",
+				"select3, dimTitle join(select3@TCONST == dimTitle@TCONST,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
