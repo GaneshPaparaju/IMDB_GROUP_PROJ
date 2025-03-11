@@ -53,6 +53,9 @@
 				},
 				{
 					"name": "select3"
+				},
+				{
+					"name": "select4"
 				}
 			],
 			"scriptLines": [
@@ -102,7 +105,7 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join1",
-				"select3, dimTitle join(select3@TCONST == dimTitle@TCONST,",
+				"select3, select4 join(select3@TCONST == select4@TCONST,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
@@ -132,6 +135,14 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> select3",
+				"dimTitle select(mapColumn(",
+				"          TITLEKEY,",
+				"          TCONST,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select4",
 				"surrogateKey1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
