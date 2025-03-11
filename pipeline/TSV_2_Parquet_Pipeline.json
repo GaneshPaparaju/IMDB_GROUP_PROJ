@@ -1,5 +1,5 @@
 {
-	"name": "RATINGSpipeline1",
+	"name": "TSV_2_Parquet_Pipeline",
 	"properties": {
 		"activities": [
 			{
