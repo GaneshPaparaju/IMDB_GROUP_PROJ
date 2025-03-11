@@ -1,0 +1,45 @@
+{
+	"name": "Parquet1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
+				"fileSystem": "silver"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "tconst",
+				"type": "UTF8"
+			},
+			{
+				"name": "parentTconst",
+				"type": "UTF8"
+			},
+			{
+				"name": "seasonNumber",
+				"type": "INT64"
+			},
+			{
+				"name": "episodeNumber",
+				"type": "INT64"
+			}
+		]
+	}
+}
