@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "SnowflakeTable_IMDB",
+						"referenceName": "SnowflakeTable_Rating_Stage",
 						"type": "DatasetReference"
 					},
 					"name": "sourceRating",
