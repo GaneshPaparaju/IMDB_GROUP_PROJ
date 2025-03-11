@@ -47,6 +47,9 @@
 				},
 				{
 					"name": "surrogateKey1"
+				},
+				{
+					"name": "select2"
 				}
 			],
 			"scriptLines": [
@@ -91,12 +94,12 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table') ~> dimGenre",
-				"flattenTable, dimGenre join(GENRES == GENRENAME,",
+				"select2, dimGenre join(GENRES == GENRENAME,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join1",
-				"join1, dimTitle join(flattenTable@TCONST == dimTitle@TCONST,",
+				"join1, dimTitle join(select2@TCONST == dimTitle@TCONST,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
@@ -112,6 +115,12 @@
 				"select1 keyGenerate(output(RowNum as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> surrogateKey1",
+				"flattenTable select(mapColumn(",
+				"          TCONST,",
+				"          GENRES",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select2",
 				"surrogateKey1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
