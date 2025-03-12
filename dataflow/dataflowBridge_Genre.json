@@ -55,9 +55,6 @@
 					"name": "join2"
 				},
 				{
-					"name": "surrogateKey1"
-				},
-				{
 					"name": "select5"
 				},
 				{
@@ -146,16 +143,13 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join2",
-				"filter1 keyGenerate(output(RowNum as long),",
-				"     startAt: 1L,",
-				"     stepValue: 1L) ~> surrogateKey1",
 				"join2 select(mapColumn(",
 				"          TITLEKEY,",
 				"          GENREKEY",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> select5",
-				"surrogateKey1 derive(DI_JOB_ID = $JOB_ID,",
+				"filter1 derive(DI_JOB_ID = $JOB_ID,",
 				"          DI_LOAD_DT = currentDate()) ~> derivedColumn3",
 				"derivedColumn1 select(mapColumn(",
 				"          GENRES_TR = GENRES_TRIM,",
