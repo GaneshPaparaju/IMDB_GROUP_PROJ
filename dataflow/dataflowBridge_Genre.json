@@ -58,9 +58,6 @@
 					"name": "select5"
 				},
 				{
-					"name": "derivedColumn3"
-				},
-				{
 					"name": "select6"
 				},
 				{
@@ -120,7 +117,9 @@
 				"     format: 'table') ~> DimGenre",
 				"derivedColumn4 select(mapColumn(",
 				"          GENREKEY,",
-				"          GENRENAME_TR = GENRENAME_TRIM",
+				"          GENRENAME_TR = GENRENAME_TRIM,",
+				"          DI_JOB_ID,",
+				"          DI_LOAD_DT",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> select3",
@@ -149,8 +148,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> select5",
-				"filter1 derive(DI_JOB_ID = $JOB_ID,",
-				"          DI_LOAD_DT = currentDate()) ~> derivedColumn3",
 				"derivedColumn1 select(mapColumn(",
 				"          GENRES_TR = GENRES_TRIM,",
 				"          TCONST_TR = TCONST_TRIM",
@@ -165,7 +162,7 @@
 				"     skipDuplicateMapOutputs: false) ~> select7",
 				"select5 filter(!isNull(TITLEKEY) && !isNull(GENREKEY)) ~> filter1",
 				"DimGenre derive(GENRENAME_TRIM = lower(trim(GENRENAME))) ~> derivedColumn4",
-				"derivedColumn3 sink(allowSchemaDrift: true,",
+				"filter1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          TITLEGENREKEY as decimal(10,0),",
@@ -181,7 +178,6 @@
 				"     format: 'table',",
 				"     stageInsert: true,",
 				"     mapColumn(",
-				"          TITLEGENREKEY = RowNum,",
 				"          GENREKEY,",
 				"          TITLEKEY,",
 				"          DI_JOB_ID,",
