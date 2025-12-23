@@ -1,0 +1,560 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2024.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File RecordLimit="" SearchSubDirs="False" FileFormat="0" OutputFileName="">C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv</File>
+          <FormatSpecificOptions>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreErrors>False</IgnoreErrors>
+            <AllowShareWrite>False</AllowShareWrite>
+            <ImportLine>1</ImportLine>
+            <FieldLen>254</FieldLen>
+            <SingleThreadRead>False</SingleThreadRead>
+            <IgnoreQuotes>False</IgnoreQuotes>
+            <Delimeter>\t</Delimeter>
+            <QuoteRecordBreak>False</QuoteRecordBreak>
+            <CodePage>65001</CodePage>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>title.akas.tsv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="titleId" size="254" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="V_WString" />
+            <Field name="ordering" size="254" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="V_WString" />
+            <Field name="title" size="254" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="V_WString" />
+            <Field name="region" size="254" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="V_WString" />
+            <Field name="language" size="254" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="V_WString" />
+            <Field name="types" size="254" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="V_WString" />
+            <Field name="attributes" size="254" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="V_WString" />
+            <Field name="isOriginalTitle" size="254" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="666" y="91" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\starb\AppData\Local\Temp\Engine_17136_65f061f480cf44a1b5753d2426c2d8c3_\Engine_17136_636f082fd7d4804f8a976db45164380a~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="66" y="426" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\starb\AppData\Local\Temp\Alteryx\Engine_34640_ddfb4a20f59a4e1689bbd60fedee5c93_\Engine_34640_628920e502a44ae5b6d12e17f86b3e8a~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="570" y="127" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\starb\AppData\Local\Temp\Engine_17136_65f061f480cf44a1b5753d2426c2d8c3_\Engine_17136_704ddd9b46693c4483ec3232a6fae9f2~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="546" y="546" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\starb\AppData\Local\Temp\Alteryx\Engine_34640_ddfb4a20f59a4e1689bbd60fedee5c93_\Engine_34640_2887a4a2e85d4eca895e738aab2c04e4~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BasicDataProfile.BasicDataProfile">
+        <Position x="570" y="450" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Limit_UniqueCount>1000000</Limit_UniqueCount>
+          <Limit_UniqueValuesSize>1000</Limit_UniqueValuesSize>
+          <IsMetric value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBasicDataProfile" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="678" y="450" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\starb\AppData\Local\Temp\Alteryx\Engine_34640_ddfb4a20f59a4e1689bbd60fedee5c93_\Engine_34640_48217b9179b54001a99c5cfce790fcc6~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AutoField.AutoField">
+        <Position x="174" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Fields>
+            <Field field="titleId" selected="True" />
+            <Field field="ordering" selected="True" />
+            <Field field="title" selected="True" />
+            <Field field="region" selected="True" />
+            <Field field="language" selected="True" />
+            <Field field="types" selected="True" />
+            <Field field="attributes" selected="True" />
+            <Field field="isOriginalTitle" selected="True" />
+            <Field field="*Unknown" selected="True" />
+          </Fields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="titleId" size="10" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="String" />
+            <Field name="ordering" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="Byte" />
+            <Field name="title" size="254" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="V_WString" />
+            <Field name="region" size="4" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="String" />
+            <Field name="language" size="3" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="String" />
+            <Field name="types" size="20" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="V_String" />
+            <Field name="attributes" size="62" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="V_String" />
+            <Field name="isOriginalTitle" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAutoField" />
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="282" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ordering" selected="True" type="Int64" size="8" />
+            <SelectField field="title" selected="True" size="1000" />
+            <SelectField field="region" selected="True" size="50" />
+            <SelectField field="language" selected="True" size="250" />
+            <SelectField field="isOriginalTitle" selected="True" type="Int64" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="35">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="138" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="title" selected="True" size="1000" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="426" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="RegEx_Replace(Trim([title]), &quot;\\s+&quot;, &quot; &quot;)" field="title" size="1000" type="V_WString" enabled="true" />
+            <FormulaField expression="REGEX_Replace([title], '[^\x20-\x7E]', '')" field="title" size="1000" type="V_WString" enabled="false" />
+            <FormulaField expression="IF [region] = '\N' THEN &quot;unknown&quot; ELSE [region] ENDIF" field="region" size="50" type="String" enabled="true" />
+            <FormulaField expression="IF [language] = '\N' THEN &quot;unknown&quot; ELSE [language] ENDIF" field="language" size="250" type="String" enabled="true" />
+            <FormulaField expression="IF [types] = '\N' THEN &quot;unknown&quot; ELSE [types] ENDIF" field="types" size="20" type="V_String" enabled="true" />
+            <FormulaField expression="IF [attributes] = '\N' THEN &quot;unknown&quot; ELSE [attributes] ENDIF" field="attributes" size="62" type="V_String" enabled="true" />
+            <FormulaField expression="IF [isOriginalTitle] = '\N' THEN &quot;unknown&quot; ELSE [isoriginalTitle] ENDIF" field="isOriginalTitle" size="8" type="Int64" enabled="false" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>title = RegEx_Replace(Trim([title]), "\\s+", " ")
+title = REGEX_Replace([title],...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="665" y="246" width="155" height="165" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 26</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="25">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="690" y="295" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File MaxRecords="" FileFormat="79">C:\Users\starb\OneDrive\Desktop\IMDB_OP_CLEAN\TITLE_AKAS_CLEAN.parquet</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions />
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>TITLE_AKAS_CLEAN.parquet</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="233" y="54" width="301" height="255" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 20</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="27">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AutoField.AutoField">
+            <Position x="378" y="151" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Fields>
+                <Field field="titleId" selected="True" />
+                <Field field="ordering" selected="True" />
+                <Field field="title" selected="True" />
+                <Field field="region" selected="True" />
+                <Field field="language" selected="True" />
+                <Field field="types" selected="True" />
+                <Field field="attributes" selected="True" />
+                <Field field="isOriginalTitle" selected="True" />
+                <Field field="*Unknown" selected="True" />
+              </Fields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="titleId" size="10" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="String" />
+                <Field name="ordering" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="Byte" />
+                <Field name="title" size="254" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="V_WString" />
+                <Field name="region" size="7" source="Formula: IF [region] = '\N' THEN &quot;UNKNOWN&quot; ELSE [region] ENDIF&#xA;" type="String" />
+                <Field name="language" size="7" source="Formula: IF [language] = '\N' THEN &quot;UNKNOWN&quot; ELSE [language] ENDIF&#xA;" type="String" />
+                <Field name="types" size="20" source="Formula: IF [types] = '\N' THEN &quot;UNKNOWN&quot; ELSE [types] ENDIF&#xA;" type="V_String" />
+                <Field name="attributes" size="62" source="Formula: IF [attributes] = '\N' THEN &quot;UNKNOWN&quot; ELSE [attributes] ENDIF&#xA;" type="V_String" />
+                <Field name="isOriginalTitle" source="File: C:\Users\starb\OneDrive\Desktop\IMDB_MID_TERM_PROJ\title.akas.tsv" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAutoField" />
+        </Node>
+        <Node ToolID="28">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="450" y="163" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="region" selected="True" size="256" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="18">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="258" y="103" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="IF [region] = '\N' THEN &quot;UNKNOWN&quot; ELSE [region] ENDIF&#xA;" field="region" size="254" type="V_WString" />
+                <FormulaField expression="IF [language] = '\N' THEN &quot;UNKNOWN&quot; ELSE [language] ENDIF&#xA;" field="language" size="254" type="V_WString" />
+                <FormulaField expression="IF [types] = '\N' THEN &quot;UNKNOWN&quot; ELSE [types] ENDIF&#xA;" field="types" size="254" type="V_WString" />
+                <FormulaField expression="IF [attributes] = '\N' THEN &quot;UNKNOWN&quot; ELSE [attributes] ENDIF&#xA;" field="attributes" size="254" type="V_WString" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>region = IF [region] = '\N' THEN "UNKNOWN" ELSE [region] ENDIF
+
+language = IF [l...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="18" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="35" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Output" />
+      <Destination ToolID="34" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="Output" />
+      <Destination ToolID="36" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="35" Connection="Output" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="28" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="19" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="27" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>TITLE_AKAS</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="33b2bcde-6422-46f5-a63b-cd05f22248f7" />
+      <Telemetry>
+        <PreviousWorkflowId value="9e3f830d-b6c8-426b-a7f4-e68331988733" />
+        <OriginWorkflowId value="9e3f830d-b6c8-426b-a7f4-e68331988733" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
