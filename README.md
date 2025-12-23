@@ -230,6 +230,6 @@ This project demonstrates:
 
 ## 📧 Contact
 
-**Ganesh** | [LinkedIn](www.linkedin.com/in/ganeshpaparaju) | [Email](paparaju.s@northeastern.edu)
+**Ganesh** | [LinkedIn](https://www.linkedin.com/in/ganeshpaparaju) | [Email](mailto:paparaju.s@northeastern.edu)
 
 *This project showcases practical data engineering skills and is available for technical discussion.*
